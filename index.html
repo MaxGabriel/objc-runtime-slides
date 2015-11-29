@@ -1,411 +1,849 @@
 <!doctype html>
 <html lang="en">
 
-	<head>
-		<meta charset="utf-8">
+    <head>
+        <meta charset="utf-8">
 
-		<title>reveal.js – The HTML Presentation Framework</title>
+        <title>reveal.js – The HTML Presentation Framework</title>
 
-		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
-		<meta name="author" content="Hakim El Hattab">
+        <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+        <meta name="author" content="Hakim El Hattab">
 
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/black.css" id="theme">
 
-		<!-- Code syntax highlighting -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+        <!-- Code syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
 
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
+        <link rel="stylesheet" href="css/max.css">
 
-		<!--[if lt IE 9]>
-		<script src="lib/js/html5shiv.js"></script>
-		<![endif]-->
-	</head>
+        <script type="text/javascript" src="js/jquery-2.1.4.js"></script>
+        <script type="text/javascript" src="js/snap.svg.js"></script>
 
-	<body>
 
-		<div class="reveal">
 
-			<!-- Any section element inside of this container is displayed as a slide -->
-			<div class="slides">
-				<section>
-					<h1>Reveal.js</h1>
-					<h3>The HTML Presentation Framework</h3>
-					<p>
-						<small>Created by <a href="http://hakim.se">Hakim El Hattab</a> / <a href="http://twitter.com/hakimel">@hakimel</a></small>
-					</p>
-				</section>
+        <!-- Printing and PDF exports -->
+        <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
 
-				<section>
-					<h2>Hello There</h2>
-					<p>
-						reveal.js enables you to create beautiful interactive slide decks using HTML. This presentation will show you examples of what it can do.
-					</p>
-				</section>
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
 
-				<!-- Example of nested vertical slides -->
-				<section>
-					<section>
-						<h2>Vertical Slides</h2>
-						<p>Slides can be nested inside of each other.</p>
-						<p>Use the <em>Space</em> key to navigate through all slides.</p>
-						<br>
-						<a href="#" class="navigate-down">
-							<img width="178" height="238" data-src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
-						</a>
-					</section>
-					<section>
-						<h2>Basement Level 1</h2>
-						<p>Nested slides are useful for adding additional detail underneath a high level horizontal slide.</p>
-					</section>
-					<section>
-						<h2>Basement Level 2</h2>
-						<p>That's it, time to go back up.</p>
-						<br>
-						<a href="#/2">
-							<img width="178" height="238" data-src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Up arrow" style="transform: rotate(180deg); -webkit-transform: rotate(180deg);">
-						</a>
-					</section>
-				</section>
+    <body>
 
-				<section>
-					<h2>Slides</h2>
-					<p>
-						Not a coder? Not a problem. There's a fully-featured visual editor for authoring these, try it out at <a href="http://slides.com" target="_blank">http://slides.com</a>.
-					</p>
-				</section>
+        <div class="reveal">
 
-				<section>
-					<h2>Point of View</h2>
-					<p>
-						Press <strong>ESC</strong> to enter the slide overview.
-					</p>
-					<p>
-						Hold down alt and click on any element to zoom in on it using <a href="http://lab.hakim.se/zoom-js">zoom.js</a>. Alt + click anywhere to zoom back out.
-					</p>
-				</section>
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+                <section>
+                    <h1>Objective-C at Runtime</h1>
+                    <h3>Calling Objective-C at Runtime</h3>
+                    <p>
+                        <small>By <a href="https://github.com/MaxGabriel">Max Tagher</a> / <a href="http://twitter.com/maxtagher">@maxtagher</a></small>
+                    </p>
+                </section>
 
-				<section>
-					<h2>Touch Optimized</h2>
-					<p>
-						Presentations look great on touch devices, like mobile phones and tablets. Simply swipe through your slides.
-					</p>
-				</section>
+                <section>
+                    <section>
+                        <h2>Part I</h2>
+                        <h2>Why call Objective-C at runtime?</h2>
+                        <p class="fragment">In general you shouldn't</p>
+                            <!-- Static typing is your friend. -->
+                        <p class="fragment">Sometimes it's useful</p>
+                    </section>
+                    <section data-transition="fade">
+                    <!-- $("svg #Line").attr("stroke-dasharray", "10,10") -->
+<svg class="sdk-arrows-diagram" width="631px" height="473px" viewBox="0 0 631 473" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch Beta 3.4.2 (15855) - http://www.bohemiancoding.com/sketch -->
+    <title>Slide</title>
+    <desc>Created with Sketch Beta.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Slide" sketch:type="MSArtboardGroup" transform="translate(-196.000000, -178.000000)">
+            <g id="SDK-Box" sketch:type="MSLayerGroup" transform="translate(708.000000, 178.000000)">
+                <rect id="Rectangle-1" fill="#4990E2" sketch:type="MSShapeGroup" x="2" y="0" width="117" height="60"></rect>
+                <text id="SDK" fill="#FFFFFF" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="30" font-weight="206" sketch:alignment="middle">
+                    <tspan x="31.72" y="41">SDK</tspan>
+                </text>
+            </g>
+            <g id="SDK-Box" sketch:type="MSLayerGroup" transform="translate(708.000000, 260.000000)">
+                <rect id="Rectangle-1" fill="#4990E2" sketch:type="MSShapeGroup" x="2" y="0" width="117" height="60"></rect>
+                <text id="SDK" fill="#FFFFFF" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="30" font-weight="206" sketch:alignment="middle">
+                    <tspan x="31.72" y="41">SDK</tspan>
+                </text>
+            </g>
+            <g id="SDK-Box" sketch:type="MSLayerGroup" transform="translate(708.000000, 342.000000)">
+                <rect id="Rectangle-1" fill="#4990E2" sketch:type="MSShapeGroup" x="2" y="0" width="117" height="60"></rect>
+                <text id="SDK" fill="#FFFFFF" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="30" font-weight="206" sketch:alignment="middle">
+                    <tspan x="31.72" y="41">SDK</tspan>
+                </text>
+            </g>
+            <g id="SDK-Box" sketch:type="MSLayerGroup" transform="translate(708.000000, 424.000000)">
+                <rect id="Rectangle-1" fill="#4990E2" sketch:type="MSShapeGroup" x="2" y="0" width="117" height="60"></rect>
+                <text id="SDK" fill="#FFFFFF" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="30" font-weight="206" sketch:alignment="middle">
+                    <tspan x="31.72" y="41">SDK</tspan>
+                </text>
+            </g>
+            <g id="SDK-Box" sketch:type="MSLayerGroup" transform="translate(708.000000, 506.000000)">
+                <rect id="Rectangle-1" fill="#4990E2" sketch:type="MSShapeGroup" x="2" y="0" width="117" height="60"></rect>
+                <text id="SDK" fill="#FFFFFF" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="30" font-weight="206" sketch:alignment="middle">
+                    <tspan x="31.72" y="41">SDK</tspan>
+                </text>
+            </g>
+            <g id="SDK-Box" sketch:type="MSLayerGroup" transform="translate(708.000000, 591.000000)">
+                <rect id="Rectangle-1" fill="#4990E2" sketch:type="MSShapeGroup" x="2" y="0" width="117" height="60"></rect>
+                <text id="SDK" fill="#FFFFFF" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="30" font-weight="206" sketch:alignment="middle">
+                    <tspan x="31.72" y="41">SDK</tspan>
+                </text>
+            </g>
+            <g id="APP" sketch:type="MSLayerGroup" transform="translate(196.000000, 312.000000)">
+                <path d="M62.7555,0 L117.2445,0 C135.315,0 144.348,0 154.0755,3.075 C164.6955,6.9405 173.0595,15.3045 176.925,25.9245 C180,35.6505 180,44.6865 180,62.7555 L180,117.2445 C180,135.315 180,144.348 176.925,154.0755 C173.0595,164.6955 164.6955,173.0595 154.0755,176.9235 C144.348,180 135.315,180 117.2445,180 L62.7555,180 C44.685,180 35.6505,180 25.9245,176.9235 C15.3045,173.0595 6.9405,164.6955 3.075,154.0755 C0,144.348 0,135.315 0,117.2445 L0,62.7555 C0,44.6865 0,35.6505 3.075,25.9245 C6.9405,15.3045 15.3045,6.9405 25.9245,3.075 C35.6505,0 44.685,0 62.7555,0 L62.7555,0" id="Icon-Shape" fill="#9250CE" sketch:type="MSShapeGroup"></path>
+                <text sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="48" font-weight="206" sketch:alignment="middle" fill="#FFFFFF">
+                    <tspan x="48.648" y="103">APP</tspan>
+                </text>
+            </g>
+            <path d="M381.5,402 L699.5,208" id="Line" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <path id="Line-decoration-1" d="M699.5,208 L688.717864,211.063583 L691.842654,216.185661 L699.5,208 Z" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" fill="#FFFFFF"></path>
+            <path d="M381.5,402 L699.5,290" id="Line" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <path id="Line-decoration-1" d="M699.5,290 L688.316743,290.758127 L690.309939,296.417382 L699.5,290 Z" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" fill="#FFFFFF"></path>
+            <path d="M381.5,402 L699.5,454" id="Line" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <path id="Line-decoration-1" d="M699.5,454 L689.325696,449.296433 L688.357424,455.217788 L699.5,454 Z" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" fill="#FFFFFF"></path>
+            <path d="M381.5,402 L699.5,536" id="Line" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <path id="Line-decoration-1" d="M699.5,536 L690.712465,529.041608 L688.382568,534.570765 L699.5,536 Z" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" fill="#FFFFFF"></path>
+            <path d="M381.5,402 L699.5,621" id="Line" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <path id="Line-decoration-1" d="M699.5,621 L692.306811,612.403603 L688.903682,617.345133 L699.5,621 Z" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" fill="#FFFFFF"></path>
+            <path d="M381.5,402 L699.5,372" id="Line" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <path id="Line-decoration-1" d="M699.5,372 L688.465974,370.027626 L689.029509,376.001103 L699.5,372 Z" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" fill="#FFFFFF"></path>
+        </g>
+    </g>
+</svg>
+<!-- <span class="fragment" id="after-svg"></span> -->
+                        <!-- A product I work on is called ad network mediation -->
+                        <!-- There are a bunch of different ad networks  -->
+                        <!-- Game developers want to use several of them, but not all of them -->
+                        <!-- We make one interface they interact with -->
+                    </section>
+                    <section data-transition="fade">
+<svg class="sdk-arrows-diagram" width="907px" height="473px" viewBox="0 0 907 473" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch Beta 3.4.2 (15855) - http://www.bohemiancoding.com/sketch -->
+    <title>Slide</title>
+    <desc>Created with Sketch Beta.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Slide" sketch:type="MSArtboardGroup" transform="translate(-33.000000, -178.000000)">
+            <g id="SDK-Box" sketch:type="MSLayerGroup" transform="translate(821.000000, 178.000000)">
+                <rect id="Rectangle-1" fill="#4990E2" sketch:type="MSShapeGroup" x="2" y="0" width="117" height="60"></rect>
+                <text id="SDK" fill="#FFFFFF" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="30" font-weight="206" sketch:alignment="middle">
+                    <tspan x="31.72" y="41">SDK</tspan>
+                </text>
+            </g>
+            <g id="SDK-Box" sketch:type="MSLayerGroup" transform="translate(821.000000, 260.000000)">
+                <rect id="Rectangle-1" fill="#4990E2" sketch:type="MSShapeGroup" x="2" y="0" width="117" height="60"></rect>
+                <text id="SDK" fill="#FFFFFF" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="30" font-weight="206" sketch:alignment="middle">
+                    <tspan x="31.72" y="41">SDK</tspan>
+                </text>
+            </g>
+            <g id="SDK-Box" sketch:type="MSLayerGroup" transform="translate(821.000000, 342.000000)">
+                <rect id="Rectangle-1" fill="#4990E2" sketch:type="MSShapeGroup" x="2" y="0" width="117" height="60"></rect>
+                <text id="SDK" fill="#FFFFFF" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="30" font-weight="206" sketch:alignment="middle">
+                    <tspan x="31.72" y="41">SDK</tspan>
+                </text>
+            </g>
+            <g id="SDK-Box" sketch:type="MSLayerGroup" transform="translate(821.000000, 424.000000)">
+                <rect id="Rectangle-1" fill="#4990E2" sketch:type="MSShapeGroup" x="2" y="0" width="117" height="60"></rect>
+                <text id="SDK" fill="#FFFFFF" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="30" font-weight="206" sketch:alignment="middle">
+                    <tspan x="31.72" y="41">SDK</tspan>
+                </text>
+            </g>
+            <g id="SDK-Box" sketch:type="MSLayerGroup" transform="translate(821.000000, 506.000000)">
+                <rect id="Rectangle-1" fill="#4990E2" sketch:type="MSShapeGroup" x="2" y="0" width="117" height="60"></rect>
+                <text id="SDK" fill="#FFFFFF" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="30" font-weight="206" sketch:alignment="middle">
+                    <tspan x="31.72" y="41">SDK</tspan>
+                </text>
+            </g>
+            <g id="SDK-Box" sketch:type="MSLayerGroup" transform="translate(821.000000, 591.000000)">
+                <rect id="Rectangle-1" fill="#4990E2" sketch:type="MSShapeGroup" x="2" y="0" width="117" height="60"></rect>
+                <text id="SDK" fill="#FFFFFF" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="30" font-weight="206" sketch:alignment="middle">
+                    <tspan x="31.72" y="41">SDK</tspan>
+                </text>
+            </g>
+            <g id="APP" sketch:type="MSLayerGroup" transform="translate(33.000000, 312.000000)">
+                <path d="M62.7555,0 L117.2445,0 C135.315,0 144.348,0 154.0755,3.075 C164.6955,6.9405 173.0595,15.3045 176.925,25.9245 C180,35.6505 180,44.6865 180,62.7555 L180,117.2445 C180,135.315 180,144.348 176.925,154.0755 C173.0595,164.6955 164.6955,173.0595 154.0755,176.9235 C144.348,180 135.315,180 117.2445,180 L62.7555,180 C44.685,180 35.6505,180 25.9245,176.9235 C15.3045,173.0595 6.9405,164.6955 3.075,154.0755 C0,144.348 0,135.315 0,117.2445 L0,62.7555 C0,44.6865 0,35.6505 3.075,25.9245 C6.9405,15.3045 15.3045,6.9405 25.9245,3.075 C35.6505,0 44.685,0 62.7555,0 L62.7555,0" id="Icon-Shape" fill="#9250CE" sketch:type="MSShapeGroup"></path>
+                <text sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="48" font-weight="206" sketch:alignment="middle" fill="#FFFFFF">
+                    <tspan x="48.648" y="103">APP</tspan>
+                </text>
+            </g>
+            <path stroke-dasharray="10,10" d="M494.5,402 L812.5,208" id="Line" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <path id="Line-decoration-1" d="M812.5,208 L801.717864,211.063583 L804.842654,216.185661 L812.5,208 Z" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" fill="#FFFFFF"></path>
+            <path stroke-dasharray="10,10" d="M494.5,402 L812.5,290" id="Line" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <path id="Line-decoration-1" d="M812.5,290 L801.316743,290.758127 L803.309939,296.417382 L812.5,290 Z" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" fill="#FFFFFF"></path>
+            <path stroke-dasharray="10,10" d="M494.5,402 L812.5,454" id="Line" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <path id="Line-decoration-1" d="M812.5,454 L802.325696,449.296433 L801.357424,455.217788 L812.5,454 Z" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" fill="#FFFFFF"></path>
+            <path stroke-dasharray="10,10" d="M494.5,402 L812.5,536" id="Line" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <path id="Line-decoration-1" d="M812.5,536 L803.712465,529.041608 L801.382568,534.570765 L812.5,536 Z" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" fill="#FFFFFF"></path>
+            <path stroke-dasharray="10,10" d="M494.5,402 L812.5,621" id="Line" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <path id="Line-decoration-1" d="M812.5,621 L805.306811,612.403603 L801.903682,617.345133 L812.5,621 Z" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" fill="#FFFFFF"></path>
+            <path stroke-dasharray="10,10" d="M494.5,402 L812.5,372" id="Line" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <path id="Line-decoration-1" d="M812.5,372 L801.465974,370.027626 L802.029509,376.001103 L812.5,372 Z" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" fill="#FFFFFF"></path>
+            <g id="SDK-Box" sketch:type="MSLayerGroup" transform="translate(365.000000, 372.000000)">
+                <rect id="Rectangle-1" fill="#4990E2" sketch:type="MSShapeGroup" x="2" y="0" width="117" height="60"></rect>
+                <text id="SDK" fill="#FFFFFF" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="30" font-weight="206" sketch:alignment="middle">
+                    <tspan x="31.72" y="41">SDK</tspan>
+                </text>
+            </g>
+            <path d="M229.5,402.5 L357.5,402.5" id="Line" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <path id="Line-decoration-1" d="M357.5,402.5 L346.7,399.5 L346.7,405.5 L357.5,402.5 Z" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" fill="#FFFFFF"></path>
+        </g>
+    </g>
+</svg>
+                    </section>
+                    <section>
+                        <!-- Referencing them at compile time means your users also need to link against it -->
+                    </section>
+                    <section>
+                        <h2>Other Use Cases</h2>
+                        <ul>
+                            <li>SDK that uses another SDK, if present</li>
+                                <ul>
+                                    <li>Track errors, analytics, etc.</li>
+                                </ul>
+                            <li class="fragment">SDK ready to use iOS 10 features before Xcode 8 is out.</li>
+                            <li class="fragment">Calling private APIs</li>
+                        </ul>
+                    </section>
+                </section>
 
-				<section data-markdown>
-					<script type="text/template">
-						## Markdown support
+                <section>
+                    <section>
+                        <h2>Part II</h2>
+                        <h2>First Approach</h2>
 
-						Write content using inline or external Markdown.
-						Instructions and more info available in the [readme](https://github.com/hakimel/reveal.js#markdown).
+                        <ul>
+                            <li><code>NSClassFromString</code></li>
+                            <li><code>performSelector:</code></li>
+                                <ul class="fragment">
+                                    <li>A Selector is a message sent to an object</li>
+                                    <li>Typically the name of a method to call</li>
+                                    <li>Selectors are C strings you can compare with pointer equality</li>
+                                </ul>
+                        </ul>
 
-						```
-						<section data-markdown>
-						  ## Markdown support
+<pre class="fragment"><code class="hljs objc">Class class = NSClassFromString(@"Chartboost");
+[class performSelector:@selector(showInterstitial:) 
+            withObject:@""];</code></pre>
+                    </section>
 
-						  Write content using inline or external Markdown.
-						  Instructions and more info available in the [readme](https://github.com/hakimel/reveal.js#markdown).
-						</section>
-						```
-					</script>
-				</section>
+                    <section>
+                        <h2>Downsides</h2>
 
-				<section>
-					<section id="fragments">
-						<h2>Fragments</h2>
-						<p>Hit the next arrow...</p>
-						<p class="fragment">... to step through ...</p>
-						<p><span class="fragment">... a</span> <span class="fragment">fragmented</span> <span class="fragment">slide.</span></p>
+                        <ul>
+                            <li class="fragment">Can't use multiple arguments</li>
+                            <li class="fragment">Can't use primitives</li>
+                            <li class="fragment">Need to use <code>NSInvocation</code></li>
+                        </ul>
 
-						<aside class="notes">
-							This slide has fragments which are also stepped through in the notes window.
-						</aside>
-					</section>
-					<section>
-						<h2>Fragment Styles</h2>
-						<p>There's different types of fragments, like:</p>
-						<p class="fragment grow">grow</p>
-						<p class="fragment shrink">shrink</p>
-						<p class="fragment fade-out">fade-out</p>
-						<p class="fragment current-visible">current-visible</p>
-						<p class="fragment highlight-red">highlight-red</p>
-						<p class="fragment highlight-blue">highlight-blue</p>
-					</section>
-				</section>
+                    </section>
 
-				<section id="transitions">
-					<h2>Transition Styles</h2>
-					<p>
-						You can select from different transitions, like: <br>
-						<a href="?transition=none#/transitions">None</a> -
-						<a href="?transition=fade#/transitions">Fade</a> -
-						<a href="?transition=slide#/transitions">Slide</a> -
-						<a href="?transition=convex#/transitions">Convex</a> -
-						<a href="?transition=concave#/transitions">Concave</a> -
-						<a href="?transition=zoom#/transitions">Zoom</a>
-					</p>
-				</section>
+                    <section>
+                    <h2>NSInvocation</h2>
+                    <!-- TODO: This code snippet is too big for the screen. -->
+                    <!-- NOTE: 14 lines for one method call. -->
+<pre><code class="hljs objc">Class class = NSClassFromString(@"AdColony");
+NSMethodSignature *signature = [class methodSignatureForSelector:@selector(configureWithAppID:zoneIDs:delegate:logging:)];
+NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+[invocation setTarget:class];
+[invocation setSelector:@selector(configureWithAppID:zoneIDs:delegate:logging:)];
 
-				<section id="themes">
-					<h2>Themes</h2>
-					<p>
-						reveal.js comes with a few themes built in: <br>
-						<!-- Hacks to swap themes after the page has loaded. Not flexible and only intended for the reveal.js demo deck. -->
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/black.css'); return false;">Black (default)</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/white.css'); return false;">White</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/league.css'); return false;">League</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/sky.css'); return false;">Sky</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/beige.css'); return false;">Beige</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/simple.css'); return false;">Simple</a> <br>
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/serif.css'); return false;">Serif</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/blood.css'); return false;">Blood</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/night.css'); return false;">Night</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/moon.css'); return false;">Moon</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/solarized.css'); return false;">Solarized</a>
-					</p>
-				</section>
+NSString *appID = @"";
+NSArray *zoneIDs = @[];
+id delegate = nil;
+BOOL logging = YES;
+[invocation setArgument:&amp;appID atIndex:2];
+[invocation setArgument:&amp;zoneIDs atIndex:3];
+[invocation setArgument:&amp;delegate atIndex:4];
+[invocation setArgument:&amp;logging atIndex:5];
 
-				<section>
-					<section data-background="#dddddd">
-						<h2>Slide Backgrounds</h2>
-						<p>
-							Set <code>data-background="#dddddd"</code> on a slide to change the background color. All CSS color formats are supported.
-						</p>
-						<a href="#" class="navigate-down">
-							<img width="178" height="238" data-src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
-						</a>
-					</section>
-					<section data-background="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png">
-						<h2>Image Backgrounds</h2>
-						<pre><code class="hljs">&lt;section data-background="image.png"&gt;</code></pre>
-					</section>
-					<section data-background="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png" data-background-repeat="repeat" data-background-size="100px">
-						<h2>Tiled Backgrounds</h2>
-						<pre><code class="hljs" style="word-wrap: break-word;">&lt;section data-background="image.png" data-background-repeat="repeat" data-background-size="100px"&gt;</code></pre>
-					</section>
-					<section data-background-video="https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.mp4,https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.webm" data-background-color="#000000">
-						<div style="background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px;">
-							<h2>Video Backgrounds</h2>
-							<pre><code class="hljs" style="word-wrap: break-word;">&lt;section data-background-video="video.mp4,video.webm"&gt;</code></pre>
-						</div>
-					</section>
-					<section data-background="http://i.giphy.com/90F8aUepslB84.gif">
-						<h2>... and GIFs!</h2>
-					</section>
-				</section>
+[invocation invoke];</code></pre>
+                    </section>
 
-				<section data-transition="slide" data-background="#4d7e65" data-background-transition="zoom">
-					<h2>Background Transitions</h2>
-					<p>
-						Different background transitions are available via the backgroundTransition option. This one's called "zoom".
-					</p>
-					<pre><code class="hljs">Reveal.configure({ backgroundTransition: 'zoom' })</code></pre>
-				</section>
+                    <section>
+                        <h2>Warnings</h2>
+                        <div>
+                            <ul>
+                                <li class=><code>@selector(foo)</code></li>
+                                <li class=><code>Undeclared selector 'foo'</code></li>
+                                
+                                    <!-- If you consult fuckingclangwarnings.com... -->
+                            </ul>
+                         </div>
+<div class="fragment">
+<span>(Ignore with <code>-Wundeclared-selector</code>)</span>
+<pre><code class="hljs objc">#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    // code here
+#pragma clang diagnostic pop</code></pre>
+</div>
+                    </section>
 
-				<section data-transition="slide" data-background="#b5533c" data-background-transition="zoom">
-					<h2>Background Transitions</h2>
-					<p>
-						You can override background transitions per-slide.
-					</p>
-					<pre><code class="hljs" style="word-wrap: break-word;">&lt;section data-background-transition="zoom"&gt;</code></pre>
-				</section>
+                    <section>
+                        <h2>Dynamic Typing</h2>
+<code id="dynamic-typing-example"><div>Class class = <span class="dyn-typing">NSClassFromString(@"AdColony")</span>;</div>
+<div>NSMethodSignature *signature = [class methodSignatureForSelector:<span class="dyn-typing">@selector(configureWithAppID:zoneIDs:delegate:logging:)</span>];</div>
+<div>NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];</div>
+<div>[invocation <span class="dyn-typing">setTarget:class</span>];</div>
+<div>[invocation <span class="dyn-typing">setSelector:@selector(configureWithAppID:zoneIDs:delegate:logging:)</span>];</div>
+<div>&nbsp;</div>
+<div>NSString *appID = @"";</div>
+<div>NSArray *zoneIDs = @[];</div>
+<div>id delegate = nil;</div>
+<div>BOOL logging = YES;</div>
+<div>[invocation <span class="dyn-typing">setArgument:&amp;appID</span> <span class="dyn-typing">atIndex:2</span>];</div>
+<div>[invocation <span class="dyn-typing">setArgument:&amp;zoneIDs</span> <span class="dyn-typing">atIndex:3</span>];</div>
+<div>[invocation <span class="dyn-typing">setArgument:&amp;delegate</span> <span class="dyn-typing">atIndex:4</span>];</div>
+<div>[invocation <span class="dyn-typing">setArgument:&amp;logging</span> <span class="dyn-typing">atIndex:5</span>];</div>
+<div>&nbsp;</div>
+<div>[invocation invoke];</div>
+<div>NSString *returnValue;</div>
+<div>[invocation <span class="dyn-typing">getReturnValue:&amp;returnValue</span>];</div></code>
+                        <!-- No protection against typos, no autocomplete -->
+                                    <!-- If there was ever a language that needed autocomplete... -->
+                                <!-- Illustration of what lines are prone to errors (almost all of them) -->
+                    </section>
 
-				<section>
-					<h2>Pretty Code</h2>
-					<pre><code class="hljs" data-trim contenteditable>
-function linkify( selector ) {
-  if( supports3DTransforms ) {
+                    <section>
+                        <h2>Ugly</h2>
+                    </section>
+                </section>
 
-    var nodes = document.querySelectorAll( selector );
+                <section>
+                    <section>
+                        <h2>Casting</h2>
+                            <ul>
+                                <li>Create a dummy class with the same methods</li>
+                                <li>Call class methods on id</li>
+                            </ul>
+                    </section>
 
-    for( var i = 0, len = nodes.length; i &lt; len; i++ ) {
-      var node = nodes[i];
+                <section>
+                <h3>Dummy Class Interface</h3>
+<pre><code class="hljs objc">@interface HZAdColony : NSObject
 
-      if( !node.className ) {
-        node.className += ' roll';
-      }
-    }
-  }
++ (void)configureWithAppID:(NSString *)appID
+                   zoneIDs:(NSArray *)zoneIDs
+                  delegate:(id)delegate
+                   logging:(BOOL)log;
+
++ (int)zoneStatusForZone:(NSString *)zoneID;
+
++ (void)playVideoAdForZone:(NSString *)zoneID
+              withDelegate:(id)delegate
+          withV4VCPrePopup:(BOOL)showPrePopup
+          andV4VCPostPopup:(BOOL)showPostPopup;
+
+@end</code></pre>
+                </section>
+                <section>
+                <h3>Dummy Class Implementation</h3>
+<pre><code class="hljs objc">#pragma clang diagnostic ignored "-Wincomplete-implementation"
+@implementation HZAdColony
+@end</code></pre>
+                </section>
+
+                <!-- TODO: This should have an instance method example that uses casting -->
+                
+                <section>
+                <h3>Class Methods</h3>
+<pre><code class="hljs objc">Class c = NSClassFromString(@"AdColony");
+[c playVideoAdForZone:@""
+         withDelegate:self
+     withV4VCPrePopup:NO
+     andV4VCPostPopup:NO];</code></pre>
+                </section>
+                <section>
+                    <h3>Downsides</h3>
+                    <ul>
+                        <li>Lose static typing for class methods</li>
+                        <li class="fragment">Lose autocomplete for class methods</li>
+                        <ul>
+                            <li class="fragment">Dealbreaker</li>
+                        </ul>
+                    </ul>
+                </section>
+                <section>
+                    <h3 id="video-without-autocomplete-duration"></h3>
+                    <video id="video-without-autocomplete" data-autoplay data-src="videos/withoutAutocomplete.mp4"></video>
+                </section>
+                <section>
+
+                </section>
+
+                <!-- Create a dummy class, cast to it. -->
+                <!-- This is pretty good. The main downside is that we can't call class methods safely -->
+                <!-- Need to use NSClassFromString -->
+                <!-- Also you lose autocomplete for class methods. This turns out to be ridiculously important for Objective-C -->
+                <!-- Many/Most SDKSs use class methods instead of instances. -->
+
+                <!-- This is the language that brought you: -->
+                <!-- outputImageProviderFromBufferWithPixelFormat:pixelsWide:pixelsHigh:baseAddress:bytesPerRow:releaseCallback:releaseContext:colorSpace:shouldColorMatch: -->
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Part III</h2>
+                        <!-- TODO forwardingTargetForSelector: puts the colon on a separate line -->
+                     <!-- Here's what I came up with -->
+                        <h2>forwardingTargetForSelector:</h2>
+                        <h2>and NSProxy</h2>
+                        
+                    </section>
+                    <section>
+                        <h2>What happens when an object receives a message
+                            <!-- What happens when an object receives a message -->
+                                <!-- Checks IMPL cache -->
+                                <!-- Eventually calls forwardingTargetForSelector -->
+                        </h2>
+                    </section>
+                    <section>
+                        <h2>Forwarding target for selector</h2>
+                    </section>
+                    <section>
+                        <h2>About NSProxy</h2>
+                        <ul>
+                            <li>NSProxy does not inherit from NSObject</li>
+                            <li>Does conform to the NSObject protocol</li>
+                        </ul>
+                        <!-- NSObject + NSObject protocol -->
+                    </section>
+                    <section>
+                    <p>Make a subclass of NSProxy, forward messages to the class we load with <code>NSClassFromString</code></p>
+                    </section>
+
+                    <section>
+<pre><code class="hljs objc">@interface HZAdColony : <strong>NSProxy</strong>
+
++ (void)playVideoAdForZone:(NSString *)zoneID
+              withDelegate:(id)delegate
+          withV4VCPrePopup:(BOOL)showPrePopup
+          andV4VCPostPopup:(BOOL)showPostPopup;
+
+@end</code></pre>
+                    </section>
+
+                    <section>
+                    <!-- Mention forwarding target for selector is an instance and class method. -->
+<pre><code class="hljs objc">#pragma clang diagnostic ignored "-Wincomplete-implementation"
+@implementation HZAdColony
+
++ (id)forwardingTargetForSelector:(SEL)aSelector
+{
+    return NSClassFromString(@"AdColony");
 }
-					</code></pre>
-					<p>Code syntax highlighting courtesy of <a href="http://softwaremaniacs.org/soft/highlight/en/description/">highlight.js</a>.</p>
-				</section>
 
-				<section>
-					<h2>Marvelous List</h2>
-					<ul>
-						<li>No order here</li>
-						<li>Or here</li>
-						<li>Or here</li>
-						<li>Or here</li>
-					</ul>
-				</section>
+@end</code></pre>
+                    </section>
 
-				<section>
-					<h2>Fantastic Ordered List</h2>
-					<ol>
-						<li>One is smaller than...</li>
-						<li>Two is smaller than...</li>
-						<li>Three!</li>
-					</ol>
-				</section>
+                    <section>
+<pre><code class="hljs objc">[HZAdColony playVideoAdForZone:@""
+         withDelegate:self
+     withV4VCPrePopup:NO
+     andV4VCPostPopup:NO];</code></pre>
+                    </section>
 
-				<section>
-					<h2>Tabular Tables</h2>
-					<table>
-						<thead>
-							<tr>
-								<th>Item</th>
-								<th>Value</th>
-								<th>Quantity</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>Apples</td>
-								<td>$1</td>
-								<td>7</td>
-							</tr>
-							<tr>
-								<td>Lemonade</td>
-								<td>$2</td>
-								<td>18</td>
-							</tr>
-							<tr>
-								<td>Bread</td>
-								<td>$3</td>
-								<td>2</td>
-							</tr>
-						</tbody>
-					</table>
-				</section>
+                    <section>
+                        <h3 id="video-with-autocomplete-duration"></h3>
+                        <video id="video-with-autocomplete" data-autoplay data-src="videos/withAutocomplete.mp4"></video>
+                    </section>
 
-				<section>
-					<h2>Clever Quotes</h2>
-					<p>
-						These guys come in two forms, inline: <q cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
-						&ldquo;The nice thing about standards is that there are so many to choose from&rdquo;</q> and block:
-					</p>
-					<blockquote cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
-						&ldquo;For years there has been a theory that millions of monkeys typing at random on millions of typewriters would
-						reproduce the entire works of Shakespeare. The Internet has proven this theory to be untrue.&rdquo;
-					</blockquote>
-				</section>
+                    <!-- Fewer lines of code than NSInvocation version -->
 
-				<section>
-					<h2>Intergalactic Interconnections</h2>
-					<p>
-						You can link between slides internally,
-						<a href="#/2/3">like this</a>.
-					</p>
-				</section>
+                    <section>
+                        <h2>HZClassProxy</h2>
+<pre><code class="hljs objc">@interface HZClassProxy : NSProxy
 
-				<section>
-					<h2>Speaker View</h2>
-					<p>There's a <a href="https://github.com/hakimel/reveal.js#speaker-notes">speaker view</a>. It includes a timer, preview of the upcoming slide as well as your speaker notes.</p>
-					<p>Press the <em>S</em> key to try it out.</p>
+// Abstract
++ (NSString *)hzProxiedClassName;
 
-					<aside class="notes">
-						Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit 's' on your keyboard).
-					</aside>
-				</section>
++ (BOOL)hzProxiedClassIsAvailable;
 
-				<section>
-					<h2>Export to PDF</h2>
-					<p>Presentations can be <a href="https://github.com/hakimel/reveal.js#pdf-export">exported to PDF</a>, here's an example:</p>
-					<iframe src="https://www.slideshare.net/slideshow/embed_code/42840540" width="445" height="355" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:3px solid #666; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
-				</section>
+@end</code></pre>
+                    </section>
 
-				<section>
-					<h2>Global State</h2>
-					<p>
-						Set <code>data-state="something"</code> on a slide and <code>"something"</code>
-						will be added as a class to the document element when the slide is open. This lets you
-						apply broader style changes, like switching the page background.
-					</p>
-				</section>
+                    <section>
+<pre><code class="hljs objc">@implementation HZClassProxy
 
-				<section data-state="customevent">
-					<h2>State Events</h2>
-					<p>
-						Additionally custom events can be triggered on a per slide basis by binding to the <code>data-state</code> name.
-					</p>
-					<pre><code class="javascript" data-trim contenteditable style="font-size: 18px;">
-Reveal.addEventListener( 'customevent', function() {
-	console.log( '"customevent" has fired' );
-} );
-					</code></pre>
-				</section>
++ (NSString *)hzProxiedClassName
+{
+    @throw [NSException exceptionWithName:@"AbstractMethodException"
+                             reason:@"Subclasses should override this method"
+                                 userInfo:nil];
+}
 
-				<section>
-					<h2>Take a Moment</h2>
-					<p>
-						Press B or . on your keyboard to pause the presentation. This is helpful when you're on stage and want to take distracting slides off the screen.
-					</p>
-				</section>
++ (BOOL)hzProxiedClassIsAvailable
+{
+    return NSClassFromString([self hzProxiedClassName]) != nil;
+}
 
-				<section>
-					<h2>Much more</h2>
-					<ul>
-						<li>Right-to-left support</li>
-						<li><a href="https://github.com/hakimel/reveal.js#api">Extensive JavaScript API</a></li>
-						<li><a href="https://github.com/hakimel/reveal.js#auto-sliding">Auto-progression</a></li>
-						<li><a href="https://github.com/hakimel/reveal.js#parallax-background">Parallax backgrounds</a></li>
-						<li><a href="https://github.com/hakimel/reveal.js#keyboard-bindings">Custom keyboard bindings</a></li>
-					</ul>
-				</section>
++ (id)forwardingTargetForSelector:(SEL)aSelector
+{
+    return NSClassFromString([self hzProxiedClassName]);
+}</code></pre>
+                    </section>
 
-				<section style="text-align: left;">
-					<h1>THE END</h1>
-					<p>
-						- <a href="http://slides.com">Try the online editor</a> <br>
-						- <a href="https://github.com/hakimel/reveal.js">Source code &amp; documentation</a>
-					</p>
-				</section>
+                    <section>
+                        <h2>Benefits</h2>
 
-			</div>
+                        <ul>
+                            <li>Static-ish typing</li>
+                            <li>Static-ish typing</li>
+                            <li>Readable code</li>
+                        </ul>
+                    </section>
 
-		</div>
+                    <!-- Not sure if these warnings are in the right spot. -->
+                    <section>
+                        <h2>Warnings</h2>
+                        <ul>
+                            <li><code>NSProxy</code> implements some methods (e.g. <code>alloc</code></li>
+                                <ul class="fragment">
+                                    <li>Override and manually forward</li>
+                                    <li>Use a custom proxy classs like <a href="https://github.com/mikeash/MAFuture/blob/master/MAProxy.m">MAProxy</a></li>
+                                </ul>
+                                <li class="fragment">If a library isn't referenced, its code won't be included in the app</li>
+                                
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Warnings</h2>
+                        <ul>
+                            <li>If a library isn't referenced, its code won't be included in the app</li>
+                                <ul class="fragment">
+                                    <li>Have developers add <code>-ObjC to Other Linker Flags</code></li>
+                                    <li>Static libraries can check this by seeing if category methods are available.</code></li>
+                                </ul>
+                        </ul>
+                    </section>
+                </section>
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.js"></script>
+                <section>
+                    <section>
+                        <h2>Properties</h2>
+                        <ul>
+                            <li>Add properties in the proxy class's header file</li>
+                            <li>Declare as <code>@dynamic</code> in implementation</li>
+                        </ul>
+                    </section>
+                    
+                    <!-- class' vs class's ? -->
+                    <!-- TODO: check if this is necessary. -->
+                    <section>
+<pre><code class="hljs objc">@interface HZGADNativeContentAd : HZClassProxy
 
-		<script>
+@property (nonatomic, readonly, copy) NSString *headline;
+@property (nonatomic, readonly, copy) NSString *body;
 
-			// Full list of configuration options available at:
-			// https://github.com/hakimel/reveal.js#configuration
-			Reveal.initialize({
-				controls: true,
-				progress: true,
-				history: true,
-				center: true,
+@end</code></pre>
+                    </section>
+                    <section>
+<pre><code class="hljs objc">@implementation HZGADNativeContentAd
 
-				transition: 'slide', // none/fade/slide/convex/concave/zoom
+@dynamic headline;
+@dynamic body;
 
-				// Optional reveal.js plugins
-				dependencies: [
-					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{ src: 'plugin/zoom-js/zoom.js', async: true },
-					{ src: 'plugin/notes/notes.js', async: true }
-				]
-			});
+@end</code></pre>
+                    </section>
+                </section>
 
-		</script>
+                <section>
+                    <section>
+                        <h2>Protocols</h2>
+                        <ul><li>Make your own namespaced protocol with the same methods</li></ul>
+                    </section>
+                    <section>
+<pre><code class="hljs objc">@protocol HZAdColonyAdDelegate &lt;NSObject&gt;
+@optional
 
-	</body>
+- (void)onAdColonyAdStartedInZone:(NSString *)zoneID;
+
+- (void)onAdColonyAdAttemptFinished:(BOOL)shown
+                             inZone:(NSString *)zoneID;
+
+@end</code></pre>
+                    </section>
+                    <section>
+                        <p>Override <code>conformsToProtocol:</code></p>
+<!-- NOTE: Most of the time this is unnecessary because people prefer respondsToSelector: -->
+<pre><code class="hljs objc">- (BOOL)conformsToProtocol:(Protocol *)aProtocol
+{
+    if (NSProtocolFromString(@"AdColonyAdDelegate") == aProtocol) {
+        return YES;
+    } else {
+        return [super conformsToProtocol:aProtocol];
+    }
+}</code></pre>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Constants</h2>
+                        <ul>
+                            <li class="fragment">Here we get really obscure</li>
+                            <li>Use <code>CFBundleGetDataPointerForName</code></li>
+                            <li class="fragment">Code is <a href="https://github.com/opensource-apple/CF/blob/3cc41a76b1491f50813e28a4ec09954ffa359e6f/CFBundle_Binary.c#L847-L876">open sourced</a></li>
+                        </ul>
+                        <!-- Can get all bundles with CFBundleGetAllBundles() -->
+                        <!-- Code for this is open source -->
+                        <!-- Calls dlsym under the hood. -->
+                    </section>
+                    <section>
+                    <h3>Example: Struct at Runtime</h3>
+<pre><code class="hljs objc" data-trim>
+typedef struct HZFBAdSize {
+    CGSize size;
+} HZFBAdSize;
+</code></pre>
+<pre><code class="hljs objc" data-trim>
+// void *CFBundleGetDataPointerForName(CFBundleRef bundle, CFStringRef symbolName);
+HZFBAdSize *adSize = CFBundleGetDataPointerForName(CFBundleGetMainBundle(), CFSTR("kFBAdSizeHeight50Banner"));
+if (adSize) {
+    return *adSize;
+}
+</code></pre>
+                    </section>
+
+                    <section>
+                    <ul>
+                        <li><code>CFBundleGetDataPointerForName</code> <a href="https://github.com/opensource-apple/CF/blob/3cc41a76b1491f50813e28a4ec09954ffa359e6f/CFBundle_Binary.c#L847-L876">open source</a></li>
+                    </ul>
+                    </section>
+
+                    <section>
+<!-- TODO: this code doesn't fit on one slide. -->
+<pre><code class="hljs objc" data-noescape data-trim>
+void *CFBundleGetDataPointerForName(CFBundleRef bundle, CFStringRef symbolName) {
+    void *dp = NULL;
+    // Load if necessary
+    if (!bundle->_isLoaded &amp;&amp; !CFBundleLoadExecutable(bundle)) return NULL;
+    
+    switch (bundle->_binaryType) {
+#if defined(BINARY_SUPPORT_DYLD)
+        case __CFBundleDYLDBundleBinary:
+        case __CFBundleDYLDFrameworkBinary:
+        case __CFBundleDYLDExecutableBinary:
+#if defined(BINARY_SUPPORT_DLFCN)
+            if (bundle->_handleCookie) dp = <b>_CFBundleDlfcnGetSymbolByName</b>(bundle, symbolName);
+#else /* BINARY_SUPPORT_DLFCN */
+            dp = _CFBundleDYLDGetSymbolByName(bundle, symbolName);
+#endif /* BINARY_SUPPORT_DLFCN */
+            break;
+#endif /* BINARY_SUPPORT_DYLD */
+#if defined(BINARY_SUPPORT_DLL)
+        case __CFBundleDLLBinary:
+            /* MF:!!! Handle this someday */
+            break;
+#endif /* BINARY_SUPPORT_DLL */
+        default:
+#if defined(BINARY_SUPPORT_DLFCN)
+            if (bundle->_handleCookie) dp = <b>_CFBundleDlfcnGetSymbolByName</b>(bundle, symbolName);
+#endif /* BINARY_SUPPORT_DLFCN */
+            break;
+    }
+    return dp;
+}</code></pre>
+                    </section>
+
+                    <section>
+<pre><code class="hljs objc" data-noescape data-trim>
+CF_PRIVATE void *_CFBundleDlfcnGetSymbolByName(CFBundleRef bundle, CFStringRef symbolName) {
+    return _CFBundleDlfcnGetSymbolByNameWithSearch(bundle, symbolName, false);
+}
+
+static void *_CFBundleDlfcnGetSymbolByNameWithSearch(CFBundleRef bundle, CFStringRef symbolName, Boolean globalSearch) {
+    void *result = NULL;
+    char buff[1026];
+    
+    if (CFStringGetCString(symbolName, buff, 1024, kCFStringEncodingUTF8)) {
+        result = <b>dlsym</b>(bundle->_handleCookie, buff);
+        if (!result &amp;&amp; globalSearch) result = dlsym(RTLD_DEFAULT, buff);
+#if defined(DEBUG)
+        if (!result) CFLog(__kCFLogBundle, CFSTR("dlsym cannot find symbol %@ in %@"), symbolName, bundle);
+#endif /* DEBUG */
+#if LOG_BUNDLE_LOAD
+        printf("bundle %p handle %p module %p image %p dlsym returns symbol %p for %s\n", bundle, bundle->_handleCookie, bundle->_moduleCookie, bundle->_imageCookie, result, buff);
+#endif /* LOG_BUNDLE_LOAD */
+    }
+    return result;
+}
+</code></pre>
+                    </section>
+
+                    <section>
+                        <h3>dlsym</h3>
+
+                        <ul>
+                            <li>Part of the POSIX standard</li>
+                            <li>Used by libraries KIF to load AppSupport.framework</li>
+                        </ul>
+                    </section>
+                    
+                    <section>
+<pre><code class="hljs objc" data-trim>
+HZFBAdSize *structPointer = dlsym(RTLD_DEFAULT, "kFBAdSizeHeight50Banner");
+if (structPointer) {
+    return  *structPointer;
+} else {
+    // Error case, return hard-coded value.
+    return  (HZFBAdSize){ CGSizeMake(-1, 50) };
+}
+</code></pre>
+                    </section>
+                    
+                    <section>
+                        <h3>Caveats</h3>
+                        <ul>
+                            <li>I have experienced weirdness with this function</li>
+                            <li class="fragment">At -Os compiler optimization, unreferenced constants were compiled out</li>
+                                <ul class="fragment">
+                                    <li>Can no longer reproduce this.</li>
+                                </ul>
+                            <li class="fragment">This function never works on Adobe Air games</li>
+                            <li class="fragment">At one point this function was not working for Google AdMob's SDK.</li>
+                            <li class="fragment">Recommendation: Have a fallback to a hard-coded value.</li>
+                        </ul>
+                    </section>
+                    
+                </section>
+                <section>
+                    <h2>C Functions</h2>
+                    <p>Use <code>CFBundleGetFunctionPointerForName</code></p>
+                </section>
+                <section>
+                    <section>
+                        <h3>Creating classes at runtime</h3>
+                        <ul>
+                            <li class="fragment">Create classes, add methods, properties, instance variables, protocols etc. at runtime</li>
+                            <li class="fragment">This is a topic all on its own</li>
+                            <li class="fragment">Example use case: subclassing an AdMob-provided <code>UIView</code> class</li>
+                        </ul>
+                    </section>
+                    <section>
+<pre><code id="bam" class="hljs objc">Class wrapperSuperClass = NSClassFromString(@"SuperclassName");
+Class subclass = objc_allocateClassPair(wrapperSuperClass, [@"SubclassName" UTF8String], 0);
+
+class_addIvar(subclass, "_heyzapDelegate", sizeof(id), rint(log2(sizeof(id))), @encode(id));
+
+IMP imp = imp_implementationWithBlock(^(id theSelf){
+    class_getSuperclass(subclass);
+    struct objc_super super_data = { theSelf, wrapperSuperClass };
+    objc_msgSendSuper(&amp;super_data, @selector(didMoveToWindow));
+    
+    Ivar ivar = class_getInstanceVariable([theSelf class], "_heyzapDelegate");
+    id delegate = object_getIvar(theSelf, ivar);
+    
+    [delegate performSelector:@selector(admobWrapperMovedToWindow)];
+});
+
+class_addMethod(subclass, @selector(didMoveToWindow), imp, "v@");
+
+objc_registerClassPair(subclass);</code></pre>
+                    </section>
+                </section>
+
+                <!-- No solution for these: -->
+                <section>
+                    <h2>Enums</h2>
+                    <ul class="fragment">
+                        <li>Enums are a purely compile-time construct</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Preprocessor Macros</h2>
+                    <ul>
+                        <li class="fragment">Preprocessor macros are a purely compile-time construct</li>
+                        <li class="fragment">Prefer constants instead—they can be documented.</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Questions?</h2>
+                </section>
+
+                <section id="themes">
+                    <h2>Themes</h2>
+                    <p>
+                        reveal.js comes with a few themes built in: <br>
+                        <!-- Hacks to swap themes after the page has loaded. Not flexible and only intended for the reveal.js demo deck. -->
+                        <a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/black.css'); return false;">Black (default)</a> -
+                        <a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/white.css'); return false;">White</a> -
+                        <a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/league.css'); return false;">League</a> -
+                        <a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/sky.css'); return false;">Sky</a> -
+                        <a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/beige.css'); return false;">Beige</a> -
+                        <a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/simple.css'); return false;">Simple</a> <br>
+                        <a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/serif.css'); return false;">Serif</a> -
+                        <a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/blood.css'); return false;">Blood</a> -
+                        <a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/night.css'); return false;">Night</a> -
+                        <a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/moon.css'); return false;">Moon</a> -
+                        <a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/solarized.css'); return false;">Solarized</a>
+                    </p>
+                </section>
+
+                <section>
+                    <h2>Speaker View</h2>
+                    <p>There's a <a href="https://github.com/hakimel/reveal.js#speaker-notes">speaker view</a>. It includes a timer, preview of the upcoming slide as well as your speaker notes.</p>
+                    <p>Press the <em>S</em> key to try it out.</p>
+
+                    <aside class="notes">
+                        Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit 's' on your keyboard).
+                    </aside>
+                </section>
+
+            </div>
+
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.js"></script>
+
+        <script>
+
+            // Full list of configuration options available at:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+                // Optional reveal.js plugins
+                dependencies: [
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { 
+                        $('pre code.hljs').each(function(i, block) {
+                            hljs.highlightBlock(block);
+                        }); }}, 
+                    { src: 'plugin/zoom-js/zoom.js', async: true },
+                    { src: 'plugin/notes/notes.js', async: true }
+                ]
+            });
+
+        </script>
+        <script type="text/javascript" src="js/max.js"></script>
+
+    </body>
 </html>

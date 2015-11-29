@@ -1,0 +1,14 @@
+.sdk-arrows-diagram {
+    font-family: 'HelveticaNeue-UltraLight', 'Helvetica Neue UltraLight', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font-weight: 100;
+    letter-spacing: 1px;
+}
+
+#dynamic-typing-example {
+    font-size: 20px;
+    text-align: left;
+}
+
+.dyn-typing {
+    background-color: #BF2323;
+}
