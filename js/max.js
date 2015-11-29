@@ -23,6 +23,17 @@ function removeCodeCallout(elements) {
   elements.find("*").css("font-weight","");
 }
 
+function handleOpacitySlide(element, is_shown) {
+  var matchingId = 'forwarding-target-slide';
+  if (element.id == 'forwarding-target-slide') {
+    if (is_shown) {
+      $("#forwarding-methods").children().not("#forwarding-target-for-selector").addClass("dimmed");
+    } else {
+      $("#forwarding-methods").children().removeClass("dimmed");
+    }
+  }
+}
+
 function updateDuration(label, video, timeout) {
   var newTime = video.currentTime.toFixed(2).toString();
   if (video.paused) {
@@ -52,10 +63,19 @@ Reveal.addEventListener( 'ready', function( event ) {
   console.log("setting up duration labels");
   setupVideoDurationLabel("video-without-autocomplete");
   setupVideoDurationLabel("video-with-autocomplete");
+
+  $('body').on({ 'touchstart' : function(){ /* do something... */ 
+    Reveal.next();
+  } });
+
+  
 });
 
 Reveal.addEventListener( 'fragmentshown', function( event ) {
   console.log("fragment shown");
+
+  handleOpacitySlide(event.fragment, true);
+
   var fragment = $(event.fragment);
   var currentHighlightId = fragment.data("proxy-current");
   var nextHighlightId = fragment.data("proxy-next");
@@ -81,6 +101,10 @@ Reveal.addEventListener( 'fragmentshown', function( event ) {
   }
 } );
 Reveal.addEventListener( 'fragmenthidden', function( event ) {
+
+  handleOpacitySlide(event.fragment, false);
+
+
   var fragment = $(event.fragment);
   var previousHighlightId = fragment.data("proxy-current");
   var currentHighlightId = fragment.data("proxy-next");

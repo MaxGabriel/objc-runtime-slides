@@ -39,5 +39,9 @@
     font-weight: 600;
 }
 
+#forwarding-methods .dimmed {
+    opacity: 0.2;
+}
+
 /*#dcdcdc*/
 /*#3f3f3f*/

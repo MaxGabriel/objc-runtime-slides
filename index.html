@@ -48,8 +48,8 @@
             <!-- Any section element inside of this container is displayed as a slide -->
             <div class="slides">
                 <section>
-                    <h1>Objective-C at Runtime</h1>
-                    <h3>Calling Objective-C at Runtime</h3>
+                    <h1>Calling Objective-C at Runtime</h1>
+                    <!-- <h3>Calling Objective-C at Runtime</h3> -->
                     <p>
                         <small>By <a href="https://github.com/MaxGabriel">Max Tagher</a> / <a href="http://twitter.com/maxtagher">@maxtagher</a></small>
                     </p>
@@ -345,6 +345,7 @@ NSString *returnValue;
 
                 <section>
                     <section>
+                        <h2>Part III</h2>
                         <h2>Casting</h2>
                             <ul>
                                 <li>Create a dummy class with the same methods</li>
@@ -415,7 +416,7 @@ NSString *returnValue;
 
                 <section>
                     <section>
-                        <h2>Part III</h2>
+                        <h2>Part IV</h2>
                         <!-- TODO forwardingTargetForSelector: puts the colon on a separate line -->
                      <!-- Here's what I came up with -->
                         <h2>forwardingTargetForSelector:</h2>
@@ -423,25 +424,53 @@ NSString *returnValue;
                         
                     </section>
                     <section>
-                        <h2>What happens when an object receives a message
-                            <!-- What happens when an object receives a message -->
-                                <!-- Checks IMPL cache -->
-                                <!-- Eventually calls forwardingTargetForSelector -->
-                        </h2>
+                        <h3>What happens when an object receives a message?</h3>
+
+                        <a href="https://mikeash.com/pyblog/friday-qa-2009-03-20-objective-c-messaging.html">From Mike Ash's Blog</a>
+                        
+                        <ol>
+                            <li><code>int result = [obj foo:@"hello"];</code></li>
+                            <li class="fragment">int result = ((int (*)(id, SEL, NSString *))objc_msgSend)(obj, @selector(foo:), @"hello");</li>
+                            <li class="fragment"><code>objc_msgSend</code> searches class hierarchy for method implementation</li>
+                            <li class="fragment">If found, the pointer to the implementation is cached</li>
+                            <li class="fragment">If found, jump to the function pointer</li>
+                        </ol>
+                        
                     </section>
                     <section>
-                        <h2>Forwarding target for selector</h2>
+                        <h3>The method is not implemented</h3>
+
+                        <a href="https://mikeash.com/pyblog/friday-qa-2009-03-27-objective-c-message-forwarding.html">From Mike Ash's Blog</a>
+
+                        <ol id="forwarding-methods">
+                            <li class="fragment"><code>resolveInstanceMethod:</code>/<code>resolveClassMethod:</code></li>
+                            <li id="forwarding-target-for-selector" class="fragment"><code>forwardingTargetForSelector:</code></li>
+                            <li class="fragment"><code>methodSignatureForSelector:</code> &amp; <code>forwardInvocation:</code></li>
+                            <li class="fragment"><code>doesNotRecognizeSelector:</code></li>
+                        </ol>
+
+                        <span hidden id="forwarding-target-slide" class="fragment" ></span>
+
                     </section>
+
                     <section>
-                        <h2>About NSProxy</h2>
+                        <h2>NSProxy</h2>
                         <ul>
-                            <li>NSProxy does not inherit from NSObject</li>
-                            <li>Does conform to the NSObject protocol</li>
+                            <li><code>NSProxy</code> does not inherit from <code>NSObject</code>
+                                <ul>
+                                    <li><code>init</code>, <code>copy</code></li>
+                                </ul>
+                            </li>
+                            <li class="fragment">Does conform to the <code>NSObject</code> protocol
+                                <ul>
+                                    <li><code>class</code>, <code>isEqual:</code>, <code>hash</code></li>
+                                </ul>
+                            </li>
                         </ul>
-                        <!-- NSObject + NSObject protocol -->
                     </section>
                     <section>
-                    <p>Make a subclass of NSProxy, forward messages to the class we load with <code>NSClassFromString</code></p>
+                        <h3>The Plan</h3>
+                        <p>Make a subclass of <code>NSProxy</code>, forward messages to the class we load with <code>NSClassFromString</code></p>
                     </section>
 
                     <section>
@@ -461,6 +490,7 @@ NSString *returnValue;
 <pre><code class="hljs objc">#pragma clang diagnostic ignored "-Wincomplete-implementation"
 @implementation HZAdColony
 
+// Forward class methods
 + (id)forwardingTargetForSelector:(SEL)aSelector
 {
     return NSClassFromString(@"AdColony");
@@ -486,6 +516,7 @@ NSString *returnValue;
                     <!-- Fewer lines of code than NSInvocation version -->
 
                     <section>
+                    <!-- This could maybe be moved to an appendix. -->
                         <h2>HZClassProxy</h2>
 <pre><code class="hljs objc">@interface HZClassProxy : NSProxy
 
@@ -529,14 +560,15 @@ NSString *returnValue;
                     <section>
                         <h2>Warnings</h2>
                         <ul>
-                            <li><code>NSProxy</code> implements some methods (e.g. <code>alloc</code>)</li>
+                            <li><code>NSProxy</code> implements some methods (e.g. <code>hash</code>)</li>
                                 <ul class="fragment">
                                     <li>Override and manually forward</li>
-                                    <li>Use a custom proxy classs like <a href="https://github.com/mikeash/MAFuture/blob/master/MAProxy.m">MAProxy</a></li>
+                                    <li>Use a custom proxy class like <a href="https://github.com/mikeash/MAFuture/blob/master/MAProxy.m">MAProxy</a></li>
                                 </ul>
                         </ul>
                     </section>
                     <section>
+                        <!-- This could maybe be moved to an appendix. -->
                         <h2>Warnings</h2>
                         <ul>
                             <li>If a library isn't referenced, its code won't be included in the app</li>
@@ -553,7 +585,7 @@ NSString *returnValue;
                         <h2>Properties</h2>
                         <ul>
                             <li>Add properties in the proxy class's header file</li>
-                            <li>Declare as <code>@dynamic</code> in implementation</li>
+                            <!-- <li>Declare as <code>@dynamic</code> in implementation</li> -->
                         </ul>
                     </section>
                     
@@ -567,14 +599,17 @@ NSString *returnValue;
 
 @end</code></pre>
                     </section>
-                    <section>
+                    <!-- Not actually necessary b/c we never create real instances of this. -->
+                    <!-- Maybe appendix material -->
+                    <!-- <section>
+
 <pre><code class="hljs objc">@implementation HZGADNativeContentAd
 
 @dynamic headline;
 @dynamic body;
 
 @end</code></pre>
-                    </section>
+                    </section> -->
                 </section>
 
                 <section>
@@ -748,7 +783,7 @@ if (structPointer) {
                         <h3>Caveats</h3>
                         <ul>
                             <li>I have experienced weirdness with this function</li>
-                            <li class="fragment">Compiler Optimization Level
+                            <li class="fragment">Compiler Optimization Level Defaults
                                 <ul>
                                     <li>Development: <code>-O0</code></li>
                                     <li>Release: <code>-Os</code></li>
@@ -843,26 +878,6 @@ if (structPointer) {
                 <section>
                     <h2>Questions?</h2>
                 </section>
-
-                <section id="themes">
-                    <h2>Themes</h2>
-                    <p>
-                        reveal.js comes with a few themes built in: <br>
-                        <!-- Hacks to swap themes after the page has loaded. Not flexible and only intended for the reveal.js demo deck. -->
-                        <a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/black.css'); return false;">Black (default)</a> -
-                        <a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/white.css'); return false;">White</a> -
-                        <a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/league.css'); return false;">League</a> -
-                        <a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/sky.css'); return false;">Sky</a> -
-                        <a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/beige.css'); return false;">Beige</a> -
-                        <a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/simple.css'); return false;">Simple</a> <br>
-                        <a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/serif.css'); return false;">Serif</a> -
-                        <a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/blood.css'); return false;">Blood</a> -
-                        <a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/night.css'); return false;">Night</a> -
-                        <a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/moon.css'); return false;">Moon</a> -
-                        <a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/solarized.css'); return false;">Solarized</a>
-                    </p>
-                </section>
-
             </div>
 
         </div>
@@ -885,6 +900,8 @@ if (structPointer) {
 
                 // Optional reveal.js plugins
                 dependencies: [
+                    // { src: '//cdn.socket.io/socket.io-1.3.5.js', async: true },
+                    // { src: 'plugin/notes-server/client.js', async: true },
                     { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
                     { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
                     { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
