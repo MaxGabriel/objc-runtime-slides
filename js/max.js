@@ -6,6 +6,23 @@
 
 // $("").addEventListener("playing", )
 
+function addCodeCallout(elements) {
+  var color = "#3f3f3f";
+
+  elements.addClass("code-callout");
+  elements.css("color", color);
+  elements.find("*").css("color", color);
+  elements.css("font-weight", "600");
+  elements.find("*").css("font-weight", "600");
+}
+function removeCodeCallout(elements) {
+  elements.removeClass("code-callout");
+  elements.css("color","");
+  elements.css("font-weight","");
+  elements.find("*").css("color","");
+  elements.find("*").css("font-weight","");
+}
+
 function updateDuration(label, video, timeout) {
   var oldTime = label.textContent;
   var newTime = video.currentTime.toFixed(2).toString();
@@ -36,6 +53,49 @@ Reveal.addEventListener( 'ready', function( event ) {
   setupVideoDurationLabel("video-without-autocomplete");
   setupVideoDurationLabel("video-with-autocomplete");
 });
+
+Reveal.addEventListener( 'fragmentshown', function( event ) {
+  console.log("fragment shown");
+  var fragment = $(event.fragment);
+  var currentHighlightId = fragment.data("proxy-current");
+  var nextHighlightId = fragment.data("proxy-next");
+  if (currentHighlightId) {
+    var old = $("#" + currentHighlightId)
+    removeCodeCallout(old);
+    // old.removeClass("code-callout");
+    // old.css("color","");
+    // old.css("font-weight","");
+    // old.find("*").css("color","");
+    // old.find("*").css("font-weight","");
+  }
+  if (nextHighlightId) {
+    var newSpan = $("#" + nextHighlightId);
+    addCodeCallout(newSpan);
+    // newSpan.addClass("code-callout");
+
+    // var color = "#3f3f3f";
+    // newSpan.css("color", color);
+    // newSpan.find("*").css("color", color);
+    // newSpan.css("font-weight", "600");
+    // newSpan.find("*").css("font-weight", "600");
+  }
+} );
+Reveal.addEventListener( 'fragmenthidden', function( event ) {
+  var fragment = $(event.fragment);
+  var previousHighlightId = fragment.data("proxy-current");
+  var currentHighlightId = fragment.data("proxy-next");
+
+  if (currentHighlightId) {
+    removeCodeCallout($("#" + currentHighlightId));
+  }
+
+  if (previousHighlightId) {
+    addCodeCallout($("#" + previousHighlightId));
+  }
+
+} );
+
+
     // event.currentSlide, event.indexh, event.indexv
 
 //     Reveal.addEventListener( 'fragmentshown', function( event ) {

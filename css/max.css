@@ -11,4 +11,33 @@
 
 .dyn-typing {
     background-color: #BF2323;
+
+    display: inline-block;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
 }
+
+/*#code-highlight {
+    background-color: yellow;
+    border-radius: 3;
+}*/
+
+.code-callout {
+    display: inline-block;
+    /*padding: 3px;*/
+    /*line-height: 100%;*/
+
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+
+    /*background-color: yellow;*/
+    background-color: rgb(254, 255, 3);
+    /*color: white;*/
+    /*color: white !important;*/
+    /*text-align: center;*/
+    /*font-size: 2em;*/
+    font-weight: 600;
+}
+
+/*#dcdcdc*/
+/*#3f3f3f*/

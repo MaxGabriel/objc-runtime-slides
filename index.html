@@ -299,24 +299,26 @@ BOOL logging = YES;
 
                     <section>
                         <h2>Dynamic Typing</h2>
-<code id="dynamic-typing-example"><div>Class class = <span class="dyn-typing">NSClassFromString(@"AdColony")</span>;</div>
-<div>NSMethodSignature *signature = [class methodSignatureForSelector:<span class="dyn-typing">@selector(configureWithAppID:zoneIDs:delegate:logging:)</span>];</div>
-<div>NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];</div>
-<div>[invocation <span class="dyn-typing">setTarget:class</span>];</div>
-<div>[invocation <span class="dyn-typing">setSelector:@selector(configureWithAppID:zoneIDs:delegate:logging:)</span>];</div>
-<div>&nbsp;</div>
-<div>NSString *appID = @"";</div>
-<div>NSArray *zoneIDs = @[];</div>
-<div>id delegate = nil;</div>
-<div>BOOL logging = YES;</div>
-<div>[invocation <span class="dyn-typing">setArgument:&amp;appID</span> <span class="dyn-typing">atIndex:2</span>];</div>
-<div>[invocation <span class="dyn-typing">setArgument:&amp;zoneIDs</span> <span class="dyn-typing">atIndex:3</span>];</div>
-<div>[invocation <span class="dyn-typing">setArgument:&amp;delegate</span> <span class="dyn-typing">atIndex:4</span>];</div>
-<div>[invocation <span class="dyn-typing">setArgument:&amp;logging</span> <span class="dyn-typing">atIndex:5</span>];</div>
-<div>&nbsp;</div>
-<div>[invocation invoke];</div>
-<div>NSString *returnValue;</div>
-<div>[invocation <span class="dyn-typing">getReturnValue:&amp;returnValue</span>];</div></code>
+<pre><code class="hljs objc" id="dynamic-typing-example" data-noescape data-trim>
+Class class = <span class="dyn-typing">NSClassFromString(@"AdColony")</span>;
+NSMethodSignature *signature = [class methodSignatureForSelector:<span class="dyn-typing">@selector(configureWithAppID:zoneIDs:delegate:logging:)</span>];
+NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+[invocation <span class="dyn-typing">setTarget:class</span>];
+[invocation <span class="dyn-typing">setSelector:@selector(configureWithAppID:zoneIDs:delegate:logging:)</span>];
+&nbsp;
+NSString *appID = @"";
+NSArray *zoneIDs = @[];
+id delegate = nil;
+BOOL logging = YES;
+[invocation <span class="dyn-typing">setArgument:&amp;appID</span> <span class="dyn-typing">atIndex:2</span>];
+[invocation <span class="dyn-typing">setArgument:&amp;zoneIDs</span> <span class="dyn-typing">atIndex:3</span>];
+[invocation <span class="dyn-typing">setArgument:&amp;delegate</span> <span class="dyn-typing">atIndex:4</span>];
+[invocation <span class="dyn-typing">setArgument:&amp;logging</span> <span class="dyn-typing">atIndex:5</span>];
+&nbsp;
+[invocation invoke];
+NSString *returnValue;
+[invocation <span class="dyn-typing">getReturnValue:&amp;returnValue</span>];
+</code></pre>
                         <!-- No protection against typos, no autocomplete -->
                                     <!-- If there was ever a language that needed autocomplete... -->
                                 <!-- Illustration of what lines are prone to errors (almost all of them) -->
@@ -599,9 +601,7 @@ BOOL logging = YES;
                     <section>
                         <h2>Constants</h2>
                         <ul>
-                            <li class="fragment">Here we get really obscure</li>
                             <li>Use <code>CFBundleGetDataPointerForName</code></li>
-                            <li class="fragment">Code is <a href="https://github.com/opensource-apple/CF/blob/3cc41a76b1491f50813e28a4ec09954ffa359e6f/CFBundle_Binary.c#L847-L876">open sourced</a></li>
                         </ul>
                         <!-- Can get all bundles with CFBundleGetAllBundles() -->
                         <!-- Code for this is open source -->
@@ -609,23 +609,38 @@ BOOL logging = YES;
                     </section>
                     <section>
                     <h3>Example: Struct at Runtime</h3>
-<pre><code class="hljs objc" data-trim>
-typedef struct HZFBAdSize {
-    CGSize size;
-} HZFBAdSize;
+<pre><code class="hljs objc" data-noescape data-trim>
+// Lookup this
+typedef struct FBAdSize {
+  CGSize size;
+} FBAdSize;
+
+extern FBAdSize const <span id="cf-bundle-1">kFBAdSizeHeight50Banner</span>;
 </code></pre>
-<pre><code class="hljs objc" data-trim>
-// void *CFBundleGetDataPointerForName(CFBundleRef bundle, CFStringRef symbolName);
-HZFBAdSize *adSize = CFBundleGetDataPointerForName(CFBundleGetMainBundle(), CFSTR("kFBAdSizeHeight50Banner"));
+
+<pre><code class="hljs objc" data-noescape data-trim>
+// Using this
+void *CFBundleGetDataPointerForName(<span id="cf-bundle-2">CFBundleRef bundle</span>, CFStringRef symbolName);
+</code></pre>
+
+<pre><code class="hljs objc" data-noescape data-trim>
+// Example
+FBAdSize <span id="cf-bundle-5">*adSize</span> = CFBundleGetDataPointerForName(<span id="cf-bundle-3">CFBundleGetMainBundle()</span>, <span id="cf-bundle-4">CFSTR("kFBAdSizeHeight50Banner")</span>);
 if (adSize) {
-    return *adSize;
+    return <span id="cf-bundle-6">*adSize</span>;
 }
 </code></pre>
+<span hidden class="fragment" data-proxy-next="cf-bundle-1"></span>
+<span hidden class="fragment" data-proxy-current="cf-bundle-1" data-proxy-next="cf-bundle-2"></span>
+<span hidden class="fragment" data-proxy-current="cf-bundle-2" data-proxy-next="cf-bundle-3"></span>
+<span hidden class="fragment" data-proxy-current="cf-bundle-3" data-proxy-next="cf-bundle-4"></span>
+<span hidden class="fragment" data-proxy-current="cf-bundle-4" data-proxy-next="cf-bundle-5"></span>
+<span hidden class="fragment" data-proxy-current="cf-bundle-5" data-proxy-next="cf-bundle-6"></span>
                     </section>
 
                     <section>
                     <ul>
-                        <li><code>CFBundleGetDataPointerForName</code> <a href="https://github.com/opensource-apple/CF/blob/3cc41a76b1491f50813e28a4ec09954ffa359e6f/CFBundle_Binary.c#L847-L876">open source</a></li>
+                        <li><code>CFBundleGetDataPointerForName</code> is <a href="https://github.com/opensource-apple/CF/blob/3cc41a76b1491f50813e28a4ec09954ffa359e6f/CFBundle_Binary.c#L847-L876">open source</a></li>
                     </ul>
                     </section>
 
@@ -643,7 +658,7 @@ void *CFBundleGetDataPointerForName(CFBundleRef bundle, CFStringRef symbolName) 
         case __CFBundleDYLDFrameworkBinary:
         case __CFBundleDYLDExecutableBinary:
 #if defined(BINARY_SUPPORT_DLFCN)
-            if (bundle->_handleCookie) dp = <b>_CFBundleDlfcnGetSymbolByName</b>(bundle, symbolName);
+            if (bundle->_handleCookie) dp = <span class="code-callout">_CFBundleDlfcnGetSymbolByName</span>(bundle, symbolName);
 #else /* BINARY_SUPPORT_DLFCN */
             dp = _CFBundleDYLDGetSymbolByName(bundle, symbolName);
 #endif /* BINARY_SUPPORT_DLFCN */
@@ -656,7 +671,7 @@ void *CFBundleGetDataPointerForName(CFBundleRef bundle, CFStringRef symbolName) 
 #endif /* BINARY_SUPPORT_DLL */
         default:
 #if defined(BINARY_SUPPORT_DLFCN)
-            if (bundle->_handleCookie) dp = <b>_CFBundleDlfcnGetSymbolByName</b>(bundle, symbolName);
+            if (bundle->_handleCookie) dp = <span class="code-callout">_CFBundleDlfcnGetSymbolByName</span>(bundle, symbolName);
 #endif /* BINARY_SUPPORT_DLFCN */
             break;
     }
@@ -666,8 +681,8 @@ void *CFBundleGetDataPointerForName(CFBundleRef bundle, CFStringRef symbolName) 
 
                     <section>
 <pre><code class="hljs objc" data-noescape data-trim>
-CF_PRIVATE void *_CFBundleDlfcnGetSymbolByName(CFBundleRef bundle, CFStringRef symbolName) {
-    return _CFBundleDlfcnGetSymbolByNameWithSearch(bundle, symbolName, false);
+CF_PRIVATE void *<span id="cf-internal-1" class="code-callout">_CFBundleDlfcnGetSymbolByName</span>(CFBundleRef bundle, CFStringRef symbolName) {
+    return <span id="cf-internal-2">_CFBundleDlfcnGetSymbolByNameWithSearch</span>(bundle, symbolName, false);
 }
 
 static void *_CFBundleDlfcnGetSymbolByNameWithSearch(CFBundleRef bundle, CFStringRef symbolName, Boolean globalSearch) {
@@ -675,7 +690,7 @@ static void *_CFBundleDlfcnGetSymbolByNameWithSearch(CFBundleRef bundle, CFStrin
     char buff[1026];
     
     if (CFStringGetCString(symbolName, buff, 1024, kCFStringEncodingUTF8)) {
-        result = <b>dlsym</b>(bundle->_handleCookie, buff);
+        result = <span id="cf-internal-3">dlsym</span>(bundle->_handleCookie, buff);
         if (!result &amp;&amp; globalSearch) result = dlsym(RTLD_DEFAULT, buff);
 #if defined(DEBUG)
         if (!result) CFLog(__kCFLogBundle, CFSTR("dlsym cannot find symbol %@ in %@"), symbolName, bundle);
@@ -686,6 +701,8 @@ static void *_CFBundleDlfcnGetSymbolByNameWithSearch(CFBundleRef bundle, CFStrin
     }
     return result;
 }
+<span hidden class="fragment" data-proxy-current="cf-internal-1" data-proxy-next="cf-internal-2"></span>
+<span hidden class="fragment" data-proxy-current="cf-internal-2" data-proxy-next="cf-internal-3"></span>
 </code></pre>
                     </section>
 
@@ -699,28 +716,44 @@ static void *_CFBundleDlfcnGetSymbolByNameWithSearch(CFBundleRef bundle, CFStrin
                     </section>
                     
                     <section>
-<pre><code class="hljs objc" data-trim>
-HZFBAdSize *structPointer = dlsym(RTLD_DEFAULT, "kFBAdSizeHeight50Banner");
+<pre><code class="hljs objc" data-noescape data-trim>
+extern void * dlsym(<span id="dlsym-1" class="code-callout">void * __handle</span>, const char * __symbol);
+</code></pre>
+
+<pre><code class="hljs objc" data-noescape data-trim>
+HZFBAdSize <span id="dlsym-3">*structPointer</span> = dlsym(<span id="dlsym-2">RTLD_DEFAULT</span>, "kFBAdSizeHeight50Banner");
 if (structPointer) {
-    return  *structPointer;
+    return  <span id="dlsym-4">*structPointer</span>;
 } else {
     // Error case, return hard-coded value.
     return  (HZFBAdSize){ CGSizeMake(-1, 50) };
 }
 </code></pre>
+<span hidden class="fragment" data-proxy-current="dlsym-1" data-proxy-next="dlsym-2"></span>
+<span hidden class="fragment" data-proxy-current="dlsym-2" data-proxy-next="dlsym-3"></span>
+<span hidden class="fragment" data-proxy-current="dlsym-3" data-proxy-next="dlsym-4"></span>
                     </section>
                     
                     <section>
                         <h3>Caveats</h3>
                         <ul>
                             <li>I have experienced weirdness with this function</li>
-                            <li class="fragment">At -Os compiler optimization, unreferenced constants were compiled out</li>
-                                <ul class="fragment">
-                                    <li>Can no longer reproduce this.</li>
+                            <li class="fragment">Compiler Optimization Level
+                                <ul>
+                                    <li>Development: <code>-O0</code></li>
+                                    <li>Release: <code>-Os</code></li>
+                                    <li class="fragment">At -Os compiler optimization, constants not statically referenced were compiled out of the binary</li>
+                                    <li class="fragment">Can no longer reproduce this</li>
                                 </ul>
+                            </li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>More Caveats</h3>
+                        <ul>
                             <li class="fragment">This function never works on Adobe Air games</li>
-                            <li class="fragment">At one point this function was not working for Google AdMob's SDK.</li>
-                            <li class="fragment">Recommendation: Have a fallback to a hard-coded value.</li>
+                            <li class="fragment">At one point this function was not working for Google AdMob's SDK</li>
+                            <li class="fragment">Recommendation: Have a fallback to a hard-coded value</li>
                         </ul>
                     </section>
                     
@@ -735,29 +768,50 @@ if (structPointer) {
                         <ul>
                             <li class="fragment">Create classes, add methods, properties, instance variables, protocols etc. at runtime</li>
                             <li class="fragment">This is a topic all on its own</li>
-                            <li class="fragment">Example use case: subclassing an AdMob-provided <code>UIView</code> class</li>
                         </ul>
                     </section>
+
                     <section>
-<pre><code id="bam" class="hljs objc">Class wrapperSuperClass = NSClassFromString(@"SuperclassName");
-Class subclass = objc_allocateClassPair(wrapperSuperClass, [@"SubclassName" UTF8String], 0);
+                    <h3>Example: Subclassing AdMob View</h3>
+                    <ul>
+                        <li class="fragment"><code>GADNativeAppInstallAdView</code> is a subclass of <code>UIView</code></li>
+                        <li class="fragment">I need to know when it's added to the window</li>
+                        <li class="fragment">Override <code>didMoveToWindow</code></li>
+                    </ul>
+                    
+                    </section>
 
-class_addIvar(subclass, "_heyzapDelegate", sizeof(id), rint(log2(sizeof(id))), @encode(id));
+                    <section>
+<pre><code id="bam" class="hljs objc" data-noescape data-trim>
+<span id="create-class-1" class="code-callout">Class wrapperSuperClass = NSClassFromString(@"GADNativeAppInstallAdView");</span>
+<span id="create-class-2">Class subclass = objc_allocateClassPair(wrapperSuperClass, "HZGADNativeAppInstallAdView", 0);</span>
 
-IMP imp = imp_implementationWithBlock(^(id theSelf){
+<span id="create-class-3">class_addIvar(subclass, "_heyzapDelegate",</span> sizeof(id), rint(log2(sizeof(id))), @encode(id));
+
+<span id="create-class-4">IMP imp = imp_implementationWithBlock(^(id theSelf)</span>{
     class_getSuperclass(subclass);
     struct objc_super super_data = { theSelf, wrapperSuperClass };
-    objc_msgSendSuper(&amp;super_data, @selector(didMoveToWindow));
+    <span id="create-class-5">objc_msgSendSuper(&amp;super_data, @selector(didMoveToWindow));</span>
     
     Ivar ivar = class_getInstanceVariable([theSelf class], "_heyzapDelegate");
-    id delegate = object_getIvar(theSelf, ivar);
+    <span id="create-class-6">id delegate = object_getIvar(theSelf, ivar);</span>
     
-    [delegate performSelector:@selector(admobWrapperMovedToWindow)];
+    <span id="create-class-7">[delegate performSelector:@selector(admobWrapperMovedToWindow)];</span>
 });
 
-class_addMethod(subclass, @selector(didMoveToWindow), imp, "v@");
+<span id="create-class-8">class_addMethod(subclass, @selector(didMoveToWindow), imp, "v@");</span>
 
-objc_registerClassPair(subclass);</code></pre>
+<span id="create-class-9">objc_registerClassPair(subclass);</span>
+</code></pre>
+<span hidden class="fragment" data-proxy-current="create-class-1" data-proxy-next="create-class-2"></span>
+<span hidden class="fragment" data-proxy-current="create-class-2" data-proxy-next="create-class-3"></span>
+<span hidden class="fragment" data-proxy-current="create-class-3" data-proxy-next="create-class-4"></span>
+<span hidden class="fragment" data-proxy-current="create-class-4" data-proxy-next="create-class-5"></span>
+<span hidden class="fragment" data-proxy-current="create-class-5" data-proxy-next="create-class-6"></span>
+<span hidden class="fragment" data-proxy-current="create-class-6" data-proxy-next="create-class-7"></span>
+<span hidden class="fragment" data-proxy-current="create-class-7" data-proxy-next="create-class-8"></span>
+<span hidden class="fragment" data-proxy-current="create-class-8" data-proxy-next="create-class-9"></span>
+
                     </section>
                 </section>
 
@@ -799,16 +853,6 @@ objc_registerClassPair(subclass);</code></pre>
                     </p>
                 </section>
 
-                <section>
-                    <h2>Speaker View</h2>
-                    <p>There's a <a href="https://github.com/hakimel/reveal.js#speaker-notes">speaker view</a>. It includes a timer, preview of the upcoming slide as well as your speaker notes.</p>
-                    <p>Press the <em>S</em> key to try it out.</p>
-
-                    <aside class="notes">
-                        Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit 's' on your keyboard).
-                    </aside>
-                </section>
-
             </div>
 
         </div>
@@ -836,7 +880,24 @@ objc_registerClassPair(subclass);</code></pre>
                     { src: 'plugin/highlight/highlight.js', async: true, callback: function() { 
                         $('pre code.hljs').each(function(i, block) {
                             hljs.highlightBlock(block);
-                        }); }}, 
+                        });
+                        // var color = "#3f3f3f";
+
+                        addCodeCallout($(".code-callout"));
+
+                        // $('.code-callout').css("color", color);
+                        // $('.code-callout').find("*").css("color", color);
+                        // $('.code-callout').css("font-weight", "600");
+                        // $('.code-callout').find("*").css("font-weight", "600");
+
+                        // $('.dyn-typing').css("color", color);
+                        // $('.dyn-typing').children().css("color", color);
+
+                        // each(function(i, span) {
+                        //     span.css("color", "white");
+                        // });
+                    }}, 
+
                     { src: 'plugin/zoom-js/zoom.js', async: true },
                     { src: 'plugin/notes/notes.js', async: true }
                 ]
