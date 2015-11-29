@@ -209,15 +209,22 @@
     </g>
 </svg>
                     </section>
+
                     <section>
-                        <!-- Referencing them at compile time means your users also need to link against it -->
+                        <h3>Can't Statically Reference</h3>
+                        <ul>
+                            <li><code>[VungleSdk playAd]</code> in our SDK</li>
+                            <li><code>VungleSdk</code> must be included in final app</li>
+                        </ul>
                     </section>
+
                     <section>
                         <h2>Other Use Cases</h2>
                         <ul>
                             <li>SDK that uses another SDK, if present</li>
-                                <ul>
-                                    <li>Track errors, analytics, etc.</li>
+                                <ul class="fragment">
+                                    <li>If Crashlytics or Bugsnag is present, track an exception</li>
+                                    <li>If Mixpanel is present, track analytics</li>
                                 </ul>
                             <li class="fragment">SDK ready to use iOS 10 features before Xcode 8 is out.</li>
                             <li class="fragment">Calling private APIs</li>
@@ -239,10 +246,33 @@
                                     <li>Selectors are C strings you can compare with pointer equality</li>
                                 </ul>
                         </ul>
+                    </section>
 
-<pre class="fragment"><code class="hljs objc">Class class = NSClassFromString(@"Chartboost");
+                    <section>
+<pre><code class="hljs objc" data-trim>
+Class class = NSClassFromString(@"Chartboost");
 [class performSelector:@selector(showInterstitial:) 
-            withObject:@""];</code></pre>
+            withObject:@""];
+</code></pre>
+                    </section>
+
+                    <section>
+                        <h2>Warnings</h2>
+                        <div>
+                            <ul>
+                                <li class=><code>@selector(foo)</code></li>
+                                <li class=><code>Undeclared selector 'foo'</code></li>
+                                
+                                    <!-- If you consult fuckingclangwarnings.com... -->
+                            </ul>
+                         </div>
+<div class="fragment">
+<span>(Ignore with <code>-Wundeclared-selector</code>)</span>
+<pre><code class="hljs objc">#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    // code here
+#pragma clang diagnostic pop</code></pre>
+</div>
                     </section>
 
                     <section>
@@ -279,25 +309,6 @@ BOOL logging = YES;
                     </section>
 
                     <section>
-                        <h2>Warnings</h2>
-                        <div>
-                            <ul>
-                                <li class=><code>@selector(foo)</code></li>
-                                <li class=><code>Undeclared selector 'foo'</code></li>
-                                
-                                    <!-- If you consult fuckingclangwarnings.com... -->
-                            </ul>
-                         </div>
-<div class="fragment">
-<span>(Ignore with <code>-Wundeclared-selector</code>)</span>
-<pre><code class="hljs objc">#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wundeclared-selector"
-    // code here
-#pragma clang diagnostic pop</code></pre>
-</div>
-                    </section>
-
-                    <section>
                         <h2>Dynamic Typing</h2>
 <pre><code class="hljs objc" id="dynamic-typing-example" data-noescape data-trim>
 Class class = <span class="dyn-typing">NSClassFromString(@"AdColony")</span>;
@@ -327,6 +338,9 @@ NSString *returnValue;
                     <section>
                         <h2>Ugly</h2>
                     </section>
+                    <section>
+                        <h2>Long (17 lines)</h2>
+                    </section>
                 </section>
 
                 <section>
@@ -340,7 +354,8 @@ NSString *returnValue;
 
                 <section>
                 <h3>Dummy Class Interface</h3>
-<pre><code class="hljs objc">@interface HZAdColony : NSObject
+<pre><code class="hljs objc" data-noescape data-trim>
+<span class="code-callout">@interface HZAdColony : NSObject</span>
 
 + (void)configureWithAppID:(NSString *)appID
                    zoneIDs:(NSArray *)zoneIDs
@@ -384,11 +399,8 @@ NSString *returnValue;
                     </ul>
                 </section>
                 <section>
-                    <h3 id="video-without-autocomplete-duration"></h3>
+                    <h2 id="video-without-autocomplete-duration"></h2>
                     <video id="video-without-autocomplete" data-autoplay data-src="videos/withoutAutocomplete.mp4"></video>
-                </section>
-                <section>
-
                 </section>
 
                 <!-- Create a dummy class, cast to it. -->
@@ -433,7 +445,8 @@ NSString *returnValue;
                     </section>
 
                     <section>
-<pre><code class="hljs objc">@interface HZAdColony : <strong>NSProxy</strong>
+<pre><code class="hljs objc" data-noescape data-trim>
+@interface HZAdColony : <span class="code-callout">NSProxy</span>
 
 + (void)playVideoAdForZone:(NSString *)zoneID
               withDelegate:(id)delegate
@@ -457,10 +470,12 @@ NSString *returnValue;
                     </section>
 
                     <section>
-<pre><code class="hljs objc">[HZAdColony playVideoAdForZone:@""
-         withDelegate:self
-     withV4VCPrePopup:NO
-     andV4VCPostPopup:NO];</code></pre>
+<pre><code class="hljs objc" data-trim>
+[HZAdColony playVideoAdForZone:@""
+                  withDelegate:self
+              withV4VCPrePopup:NO
+              andV4VCPostPopup:NO];
+</code></pre>
                     </section>
 
                     <section>
@@ -485,20 +500,17 @@ NSString *returnValue;
                     <section>
 <pre><code class="hljs objc">@implementation HZClassProxy
 
-+ (NSString *)hzProxiedClassName
-{
++ (NSString *)hzProxiedClassName {
     @throw [NSException exceptionWithName:@"AbstractMethodException"
                              reason:@"Subclasses should override this method"
                                  userInfo:nil];
 }
 
-+ (BOOL)hzProxiedClassIsAvailable
-{
++ (BOOL)hzProxiedClassIsAvailable {
     return NSClassFromString([self hzProxiedClassName]) != nil;
 }
 
-+ (id)forwardingTargetForSelector:(SEL)aSelector
-{
++ (id)forwardingTargetForSelector:(SEL)aSelector {
     return NSClassFromString([self hzProxiedClassName]);
 }</code></pre>
                     </section>
@@ -507,9 +519,9 @@ NSString *returnValue;
                         <h2>Benefits</h2>
 
                         <ul>
-                            <li>Static-ish typing</li>
-                            <li>Static-ish typing</li>
+                            <li>Static typing</li>
                             <li>Readable code</li>
+                            <li>Autocomplete</li>
                         </ul>
                     </section>
 
@@ -517,13 +529,11 @@ NSString *returnValue;
                     <section>
                         <h2>Warnings</h2>
                         <ul>
-                            <li><code>NSProxy</code> implements some methods (e.g. <code>alloc</code></li>
+                            <li><code>NSProxy</code> implements some methods (e.g. <code>alloc</code>)</li>
                                 <ul class="fragment">
                                     <li>Override and manually forward</li>
                                     <li>Use a custom proxy classs like <a href="https://github.com/mikeash/MAFuture/blob/master/MAProxy.m">MAProxy</a></li>
                                 </ul>
-                                <li class="fragment">If a library isn't referenced, its code won't be included in the app</li>
-                                
                         </ul>
                     </section>
                     <section>
@@ -859,6 +869,7 @@ if (structPointer) {
 
         <script src="lib/js/head.min.js"></script>
         <script src="js/reveal.js"></script>
+        <script type="text/javascript" src="js/max.js"></script>
 
         <script>
 
@@ -904,7 +915,6 @@ if (structPointer) {
             });
 
         </script>
-        <script type="text/javascript" src="js/max.js"></script>
 
     </body>
 </html>

@@ -24,7 +24,6 @@ function removeCodeCallout(elements) {
 }
 
 function updateDuration(label, video, timeout) {
-  var oldTime = label.textContent;
   var newTime = video.currentTime.toFixed(2).toString();
   if (video.paused) {
     label.textContent = newTime; // Update to final time
@@ -40,16 +39,17 @@ function updateDuration(label, video, timeout) {
 function setupVideoDurationLabel(videoID) {
   var labelID = videoID  + "-duration";
   var video = document.getElementById(videoID);
-  var label = document.getElementById(video);
   video.addEventListener("playing", function() {
-    // console.log("Playing video event happened");
+    console.log("Playing video event happened");
     // withoutAutoComplete.currentTime = 0;
     // label.textContent = "-1";
+    var label = document.getElementById(labelID);
     updateDuration(label, video, 50);
   });
 }
 
 Reveal.addEventListener( 'ready', function( event ) {
+  console.log("setting up duration labels");
   setupVideoDurationLabel("video-without-autocomplete");
   setupVideoDurationLabel("video-with-autocomplete");
 });
