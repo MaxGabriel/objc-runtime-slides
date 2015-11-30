@@ -43,5 +43,11 @@
     opacity: 0.2;
 }
 
+.reveal pre code {
+    max-height: 800px;
+    margin-left: 0;
+    margin-right: 0;
+}
+
 /*#dcdcdc*/
 /*#3f3f3f*/

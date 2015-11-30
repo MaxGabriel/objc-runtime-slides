@@ -213,7 +213,7 @@
                     <section>
                         <h3>Can't Statically Reference</h3>
                         <ul>
-                            <li><code>[VungleSdk playAd]</code> in our SDK</li>
+                            <li><code>[VungleSdk playAd]</code> in your SDK</li>
                             <li><code>VungleSdk</code> must be included in final app</li>
                         </ul>
                     </section>
@@ -292,7 +292,8 @@ Class class = NSClassFromString(@"Chartboost");
                     <!-- NOTE: 14 lines for one method call. -->
 <pre><code class="hljs objc" data-noescape data-trim>
 Class class = <span id="nsinvocation-1" class="code-callout">NSClassFromString(@"AdColony")</span>;
-NSMethodSignature *signature = [class <span id="nsinvocation-2">methodSignatureForSelector:@selector(configureWithAppID:zoneIDs:delegate:logging:)</span>];
+<span id="nsinvocation-2">NSMethodSignature *signature = [class methodSignatureForSelector:
+                                @selector(configureWithAppID:zoneIDs:delegate:logging:)</span>];
 NSInvocation *invocation = <span id="nsinvocation-3">[NSInvocation invocationWithMethodSignature:</span>signature];
 [invocation <span id="nsinvocation-4">setTarget:class</span>];
 [invocation <span id="nsinvocation-5">setSelector:@selector(configureWithAppID:zoneIDs:delegate:logging:)</span>];
@@ -322,7 +323,8 @@ BOOL logging = YES;
                         <h2>Dynamic Typing</h2>
 <pre><code class="hljs objc" id="dynamic-typing-example" data-noescape data-trim>
 Class class = <span class="dyn-typing">NSClassFromString(@"AdColony")</span>;
-NSMethodSignature *signature = [class methodSignatureForSelector:<span class="dyn-typing">@selector(configureWithAppID:zoneIDs:delegate:logging:)</span>];
+NSMethodSignature *signature = [class methodSignatureForSelector:
+                                <span class="dyn-typing">@selector(configureWithAppID:zoneIDs:delegate:logging:)</span>];
 NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
 [invocation <span class="dyn-typing">setTarget:class</span>];
 [invocation <span class="dyn-typing">setSelector:@selector(configureWithAppID:zoneIDs:delegate:logging:)</span>];
@@ -359,7 +361,7 @@ NSString *returnValue;
                         <h2>NSObject Subclass</h2>
                             <ul>
                                 <li>Create a dummy class with the same methods</li>
-                                <li>Call class methods on id</li>
+                                <li>Call class methods on <code>Class</code> objects</li>
                             </ul>
                     </section>
 
@@ -489,7 +491,7 @@ HZAdColony *instance = [[c alloc] init];
                     </section>
                     <section>
                         <h3>The Plan</h3>
-                        <p>Make a subclass of <code>NSProxy</code>, forward messages to the class we load with <code>NSClassFromString</code></p>
+                        <p>Make a subclass of <code>NSProxy</code>, then forward messages to the class we load with <code>NSClassFromString</code></p>
                     </section>
 
                     <section>
@@ -579,7 +581,7 @@ HZAdColony *instance = [[c alloc] init];
                     <section>
                         <h2>Warnings</h2>
                         <ul>
-                            <li><code>NSProxy</code> implements some methods (e.g. <code>hash</code>)</li>
+                            <li><code>NSProxy</code> implements some methods (e.g. <code>alloc</code>, <code>hash</code>)</li>
                                 <ul class="fragment">
                                     <li>Override and manually forward</li>
                                     <li>Use a custom proxy class like <a href="https://github.com/mikeash/MAFuture/blob/master/MAProxy.m">MAProxy</a></li>
@@ -684,14 +686,14 @@ extern FBAdSize const <span id="cf-bundle-1">kFBAdSizeHeight50Banner</span>;
 
 <pre><code class="hljs objc" data-noescape data-trim>
 // Using this
-void *CFBundleGetDataPointerForName(<span id="cf-bundle-2">CFBundleRef bundle</span>, CFStringRef symbolName);
+void *<span id="cf-bundle-2">CFBundleGetDataPointerForName</span>(<span id="cf-bundle-3">CFBundleRef bundle</span>, CFStringRef symbolName);
 </code></pre>
 
 <pre><code class="hljs objc" data-noescape data-trim>
 // Example
-FBAdSize <span id="cf-bundle-5">*adSize</span> = CFBundleGetDataPointerForName(<span id="cf-bundle-3">CFBundleGetMainBundle()</span>, <span id="cf-bundle-4">CFSTR("kFBAdSizeHeight50Banner")</span>);
+FBAdSize <span id="cf-bundle-6">*adSize</span> = CFBundleGetDataPointerForName(<span id="cf-bundle-4">CFBundleGetMainBundle()</span>, <span id="cf-bundle-5">CFSTR("kFBAdSizeHeight50Banner")</span>);
 if (adSize) {
-    return <span id="cf-bundle-6">*adSize</span>;
+    return <span id="cf-bundle-7">*adSize</span>;
 }
 </code></pre>
 <span hidden class="fragment" data-proxy-next="cf-bundle-1"></span>
@@ -700,6 +702,7 @@ if (adSize) {
 <span hidden class="fragment" data-proxy-current="cf-bundle-3" data-proxy-next="cf-bundle-4"></span>
 <span hidden class="fragment" data-proxy-current="cf-bundle-4" data-proxy-next="cf-bundle-5"></span>
 <span hidden class="fragment" data-proxy-current="cf-bundle-5" data-proxy-next="cf-bundle-6"></span>
+<span hidden class="fragment" data-proxy-current="cf-bundle-6" data-proxy-next="cf-bundle-7"></span>
                     </section>
 
                     <section>
@@ -722,7 +725,8 @@ void *CFBundleGetDataPointerForName(CFBundleRef bundle, CFStringRef symbolName) 
         case __CFBundleDYLDFrameworkBinary:
         case __CFBundleDYLDExecutableBinary:
 #if defined(BINARY_SUPPORT_DLFCN)
-            if (bundle->_handleCookie) dp = <span class="code-callout">_CFBundleDlfcnGetSymbolByName</span>(bundle, symbolName);
+            if (bundle->_handleCookie) 
+                dp = <span class="code-callout">_CFBundleDlfcnGetSymbolByName</span>(bundle, symbolName);
 #else /* BINARY_SUPPORT_DLFCN */
             dp = _CFBundleDYLDGetSymbolByName(bundle, symbolName);
 #endif /* BINARY_SUPPORT_DLFCN */
@@ -735,7 +739,8 @@ void *CFBundleGetDataPointerForName(CFBundleRef bundle, CFStringRef symbolName) 
 #endif /* BINARY_SUPPORT_DLL */
         default:
 #if defined(BINARY_SUPPORT_DLFCN)
-            if (bundle->_handleCookie) dp = <span class="code-callout">_CFBundleDlfcnGetSymbolByName</span>(bundle, symbolName);
+            if (bundle->_handleCookie) 
+                dp = <span class="code-callout">_CFBundleDlfcnGetSymbolByName</span>(bundle, symbolName);
 #endif /* BINARY_SUPPORT_DLFCN */
             break;
     }
@@ -745,11 +750,15 @@ void *CFBundleGetDataPointerForName(CFBundleRef bundle, CFStringRef symbolName) 
 
                     <section>
 <pre><code class="hljs objc" data-noescape data-trim>
-CF_PRIVATE void *<span id="cf-internal-1" class="code-callout">_CFBundleDlfcnGetSymbolByName</span>(CFBundleRef bundle, CFStringRef symbolName) {
-    return <span id="cf-internal-2">_CFBundleDlfcnGetSymbolByNameWithSearch</span>(bundle, symbolName, false);
+CF_PRIVATE void *<span id="cf-internal-1" class="code-callout">_CFBundleDlfcnGetSymbolByName</span>(CFBundleRef bundle,
+                                               CFStringRef symbolName) {
+    return <span id="cf-internal-2">_CFBundleDlfcnGetSymbolByNameWithSearch</span>(bundle, 
+                                                   symbolName, false);
 }
 
-static void *_CFBundleDlfcnGetSymbolByNameWithSearch(CFBundleRef bundle, CFStringRef symbolName, Boolean globalSearch) {
+static void *_CFBundleDlfcnGetSymbolByNameWithSearch(CFBundleRef bundle,
+                                                     CFStringRef symbolName,
+                                                     Boolean globalSearch) {
     void *result = NULL;
     char buff[1026];
     
@@ -757,7 +766,9 @@ static void *_CFBundleDlfcnGetSymbolByNameWithSearch(CFBundleRef bundle, CFStrin
         result = <span id="cf-internal-3">dlsym</span>(bundle->_handleCookie, buff);
         if (!result &amp;&amp; globalSearch) result = dlsym(RTLD_DEFAULT, buff);
 #if defined(DEBUG)
-        if (!result) CFLog(__kCFLogBundle, CFSTR("dlsym cannot find symbol %@ in %@"), symbolName, bundle);
+        if (!result) CFLog(__kCFLogBundle,
+                           CFSTR("dlsym cannot find symbol %@ in %@"),
+                           symbolName, bundle);
 #endif /* DEBUG */
 #if LOG_BUNDLE_LOAD
         printf("bundle %p handle %p module %p image %p dlsym returns symbol %p for %s\n", bundle, bundle->_handleCookie, bundle->_moduleCookie, bundle->_imageCookie, result, buff);
@@ -802,7 +813,7 @@ if (structPointer) {
                         <h3>Caveats</h3>
                         <ul>
                             <li>I have experienced weirdness with this function</li>
-                            <li class="fragment">Compiler Optimization Level Defaults
+                            <li class="fragment">Default Compiler Optimization Level
                                 <ul>
                                     <li>Development: <code>-O0</code></li>
                                     <li>Release: <code>-Os</code></li>
@@ -848,9 +859,11 @@ if (structPointer) {
                     <section>
 <pre><code id="bam" class="hljs objc" data-noescape data-trim>
 <span id="create-class-1" class="code-callout">Class wrapperSuperClass = NSClassFromString(@"GADNativeAppInstallAdView");</span>
-<span id="create-class-2">Class subclass = objc_allocateClassPair(wrapperSuperClass, "HZGADNativeAppInstallAdView", 0);</span>
+<span id="create-class-2">Class subclass = objc_allocateClassPair(wrapperSuperClass, 
+                                        "HZGADNativeAppInstallAdView", 0);</span>
 
-<span id="create-class-3">class_addIvar(subclass, "_heyzapDelegate",</span> sizeof(id), rint(log2(sizeof(id))), @encode(id));
+<span id="create-class-3">class_addIvar(subclass, "_heyzapDelegate",</span>
+              sizeof(id), rint(log2(sizeof(id))), @encode(id));
 
 <span id="create-class-4">IMP imp = imp_implementationWithBlock(^(id theSelf)</span>{
     class_getSuperclass(subclass);
@@ -914,6 +927,11 @@ if (structPointer) {
                 progress: true,
                 history: true,
                 center: true,
+
+                // TODO investigate these values
+                width: 1152,
+                height: 840,
+                margin: 0.05,
 
                 transition: 'slide', // none/fade/slide/convex/concave/zoom
 
