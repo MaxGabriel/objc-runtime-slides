@@ -279,8 +279,8 @@ Class class = NSClassFromString(@"Chartboost");
                         <h2>Downsides</h2>
 
                         <ul>
-                            <li class="fragment">Can't use multiple arguments</li>
-                            <li class="fragment">Can't use primitives</li>
+                            <li class="fragment">Can't pass multiple arguments</li>
+                            <li class="fragment">Can't use primitives (<code>int</code>, <code>BOOL</code>)</li>
                             <li class="fragment">Need to use <code>NSInvocation</code></li>
                         </ul>
 
@@ -290,22 +290,32 @@ Class class = NSClassFromString(@"Chartboost");
                     <h2>NSInvocation</h2>
                     <!-- TODO: This code snippet is too big for the screen. -->
                     <!-- NOTE: 14 lines for one method call. -->
-<pre><code class="hljs objc">Class class = NSClassFromString(@"AdColony");
-NSMethodSignature *signature = [class methodSignatureForSelector:@selector(configureWithAppID:zoneIDs:delegate:logging:)];
-NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
-[invocation setTarget:class];
-[invocation setSelector:@selector(configureWithAppID:zoneIDs:delegate:logging:)];
+<pre><code class="hljs objc" data-noescape data-trim>
+Class class = <span id="nsinvocation-1" class="code-callout">NSClassFromString(@"AdColony")</span>;
+NSMethodSignature *signature = [class <span id="nsinvocation-2">methodSignatureForSelector:@selector(configureWithAppID:zoneIDs:delegate:logging:)</span>];
+NSInvocation *invocation = <span id="nsinvocation-3">[NSInvocation invocationWithMethodSignature:</span>signature];
+[invocation <span id="nsinvocation-4">setTarget:class</span>];
+[invocation <span id="nsinvocation-5">setSelector:@selector(configureWithAppID:zoneIDs:delegate:logging:)</span>];
 
 NSString *appID = @"";
 NSArray *zoneIDs = @[];
 id delegate = nil;
 BOOL logging = YES;
-[invocation setArgument:&amp;appID atIndex:2];
+[invocation <span id="nsinvocation-6">setArgument:&amp;appID</span> <span id="nsinvocation-7">atIndex:2</span>];
 [invocation setArgument:&amp;zoneIDs atIndex:3];
 [invocation setArgument:&amp;delegate atIndex:4];
 [invocation setArgument:&amp;logging atIndex:5];
 
-[invocation invoke];</code></pre>
+[invocation <span id="nsinvocation-8">invoke</span>];
+</code></pre>
+
+<span hidden class="fragment" data-proxy-current="nsinvocation-1" data-proxy-next="nsinvocation-2"></span>
+<span hidden class="fragment" data-proxy-current="nsinvocation-2" data-proxy-next="nsinvocation-3"></span>
+<span hidden class="fragment" data-proxy-current="nsinvocation-3" data-proxy-next="nsinvocation-4"></span>
+<span hidden class="fragment" data-proxy-current="nsinvocation-4" data-proxy-next="nsinvocation-5"></span>
+<span hidden class="fragment" data-proxy-current="nsinvocation-5" data-proxy-next="nsinvocation-6"></span>
+<span hidden class="fragment" data-proxy-current="nsinvocation-6" data-proxy-next="nsinvocation-7"></span>
+<span hidden class="fragment" data-proxy-current="nsinvocation-7" data-proxy-next="nsinvocation-8"></span>
                     </section>
 
                     <section>
@@ -346,7 +356,7 @@ NSString *returnValue;
                 <section>
                     <section>
                         <h2>Part III</h2>
-                        <h2>Casting</h2>
+                        <h2>NSObject Subclass</h2>
                             <ul>
                                 <li>Create a dummy class with the same methods</li>
                                 <li>Call class methods on id</li>
@@ -380,6 +390,15 @@ NSString *returnValue;
                 </section>
 
                 <!-- TODO: This should have an instance method example that uses casting -->
+
+                <section>
+                    <h3>Instance Methods</h3>
+<pre><code class="hljs objc" data-trim>
+Class c = NSClassFromString(@"AdColony");
+HZAdColony *instance = [[c alloc] init];
+[instance foo];
+</code></pre>     
+                </section>
                 
                 <section>
                 <h3>Class Methods</h3>
